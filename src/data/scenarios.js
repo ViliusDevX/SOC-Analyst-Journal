@@ -2,7 +2,6 @@ export const scenarios = [
   {
     id: 1,
     title: "Phishing → PowerShell → Persistence",
-    severity: "High",
     summary:
       "Suspicious email attachment leads to hidden encoded PowerShell execution, external HTTPS traffic, and registry persistence.",
     evidence: [
@@ -26,7 +25,6 @@ export const scenarios = [
   {
     id: 2,
     title: "DNS Tunneling & Data Exfiltration",
-    severity: "High",
     summary:
       "High-entropy Base64-like DNS queries repeatedly sent over port 53 after opening an email attachment.",
     evidence: [
@@ -49,7 +47,6 @@ export const scenarios = [
   {
     id: 3,
     title: "Credential Attack & Possible Lateral Movement",
-    severity: "Critical",
     summary:
       "Multiple failed logons followed by privileged access, WMI execution, and SMB admin share activity.",
     evidence: [
@@ -72,7 +69,6 @@ export const scenarios = [
   {
     id: 4,
     title: "Potential Apache False Positive",
-    severity: "Medium",
     summary:
       "Critical Apache RCE reported on internet-facing server behind reverse proxy with uncertain backend patching.",
     evidence: [
@@ -96,7 +92,6 @@ export const scenarios = [
   {
     id: 5,
     title: "Multi-Alert Incident Correlation",
-    severity: "Critical",
     summary:
       "Multiple alerts indicate potential phishing compromise, C2 traffic, encoded PowerShell execution, and DNS tunneling.",
     evidence: [

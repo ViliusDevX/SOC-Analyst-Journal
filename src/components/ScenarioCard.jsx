@@ -9,11 +9,6 @@ function ScenarioCard({ scenario }) {
           <h3 className="text-2xl font-semibold">{scenario.title}</h3>
         </div>
 
-        <div className="flex flex-wrap gap-2 h-fit">
-          <span className="text-sm bg-red-950 text-red-300 border border-red-900 px-3 py-1 rounded-full">
-            {scenario.severity}
-          </span>
-        </div>
       </div>
 
       <p className="text-zinc-400 mb-6 max-w-4xl">

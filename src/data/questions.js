@@ -2,7 +2,6 @@ export const questions = [
   {
     id: 1,
     topic: "Authentication",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A SIEM alert shows multiple failed logins, one successful login, and Event ID 4672 shortly afterward. The account used is a privileged service account. What is the MOST likely concern?",
@@ -12,7 +11,6 @@ export const questions = [
   {
     id: 2,
     topic: "Phishing",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "An analyst detects the process chain OUTLOOK.EXE → WINWORD.EXE → powershell.exe -nop -w hidden -enc. Which is the MOST likely initial attack vector?",
@@ -22,7 +20,6 @@ export const questions = [
   {
     id: 3,
     topic: "Vulnerability Management",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A scanner reports a critical Apache vulnerability on a public web server. The server is behind a reverse proxy and the backend patch level is unknown. What should the analyst do FIRST?",
@@ -33,7 +30,6 @@ export const questions = [
   {
     id: 4,
     topic: "Command and Control",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A host repeatedly contacts a newly registered domain every 60 seconds over HTTPS using small amounts of traffic. What is the MOST likely explanation?",
@@ -43,7 +39,6 @@ export const questions = [
   {
     id: 5,
     topic: "Credential Attacks",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which of the following BEST represents credential stuffing?",
     options: ["One password attempted against many users", "Stolen credential pairs tested automatically", "Forged Kerberos ticket usage", "Brute-force attack against one account"],
@@ -53,7 +48,6 @@ export const questions = [
   {
     id: 6,
     topic: "Threat Intelligence",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which framework is MOST useful for comparing adversary TTPs?",
     options: ["OWASP", "STIX/TAXII", "MITRE ATT&CK", "CVSS"],
@@ -62,7 +56,6 @@ export const questions = [
   {
     id: 7,
     topic: "DNS Tunneling",
-    difficulty: "Medium",
     status: "Raw Answer",
     question: "An analyst suspects DNS tunneling. Which indicator BEST supports this suspicion?",
     options: ["Long high-entropy DNS queries", "Large ICMP packets", "Frequent DHCP renewals", "Browser cache changes"],
@@ -71,7 +64,6 @@ export const questions = [
   {
     id: 8,
     topic: "Linux Investigation",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A Linux host shows: Accepted password for devuser; sudo: devuser : COMMAND=/bin/bash; sudo: devuser : COMMAND=/usr/bin/nmap. What is MOST likely occurring?",
@@ -81,7 +73,6 @@ export const questions = [
   {
     id: 9,
     topic: "SIEM Tuning",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which of the following BEST reduces SIEM false positives?",
     options: ["Disabling PowerShell logs", "Reducing retention periods", "Baselining and correlation tuning", "Ignoring alerts from administrators"],
@@ -90,7 +81,6 @@ export const questions = [
   {
     id: 10,
     topic: "Incident Response",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "A workstation has confirmed malware execution. What should be performed FIRST?",
     options: ["Reimage the system", "Restore from backup", "Isolate the host", "Notify legal department"],
@@ -99,7 +89,6 @@ export const questions = [
   {
     id: 11,
     topic: "Persistence",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which of the following is a persistence mechanism?",
     options: ["ICMP echo request", "Scheduled task creation", "Port scanning", "DNS resolution"],
@@ -108,7 +97,6 @@ export const questions = [
   {
     id: 12,
     topic: "Attack Lifecycle",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "An analyst observes WINWORD.EXE → powershell.exe → external IP. Which phase of the attack is MOST likely occurring?",
@@ -118,7 +106,6 @@ export const questions = [
   {
     id: 13,
     topic: "UEBA",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "A company wants to detect impossible travel logins. Which solution BEST fits this requirement?",
     options: ["NetFlow analysis", "UEBA", "Port mirroring", "VLAN segmentation"],
@@ -128,7 +115,6 @@ export const questions = [
   {
     id: 14,
     topic: "Vulnerability Management",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which of the following is MOST likely a false positive vulnerability finding?",
     options: ["Public exploit exists", "Critical CVSS score", "Version/banner detection mismatch", "Internet-facing application"],
@@ -138,7 +124,6 @@ export const questions = [
   {
     id: 15,
     topic: "PowerShell",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "An analyst notices encoded PowerShell commands using powershell.exe -enc. What does this MOST likely indicate?",
     options: ["Compression activity", "Encoded or obfuscated payload execution", "DNS resolution", "Software patching"],
@@ -147,7 +132,6 @@ export const questions = [
   {
     id: 16,
     topic: "Incident Response",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "Which phase of incident response includes removing malware persistence artifacts?",
     options: ["Recovery", "Detection and analysis", "Eradication", "Preparation"],
@@ -157,7 +141,6 @@ export const questions = [
   {
     id: 17,
     topic: "DLP",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A user downloads thousands of sensitive files at 3:00 AM and triggers a DLP alert. What should the analyst do FIRST?",
@@ -168,7 +151,6 @@ export const questions = [
   {
     id: 18,
     topic: "Lateral Movement",
-    difficulty: "Medium",
     status: "Raw Answer",
     question: "Which log source is MOST useful for detecting WMI lateral movement?",
     options: ["DNS logs", "DHCP logs", "Windows process creation / Sysmon logs", "Printer logs"],
@@ -177,7 +159,6 @@ export const questions = [
   {
     id: 19,
     topic: "Credential Attacks",
-    difficulty: "Easy",
     status: "Raw Answer",
     question: "An attacker tries one password against hundreds of accounts. Which attack is this?",
     options: ["Credential stuffing", "Password spraying", "Pass-the-ticket", "Kerberoasting"],
@@ -186,7 +167,6 @@ export const questions = [
   {
     id: 20,
     topic: "Malware Persistence",
-    difficulty: "Medium",
     status: "Raw Answer",
     question:
       "A compromised host maintains persistence, reconnects externally after reboot, and creates registry Run keys. What severity should MOST likely be assigned?",
