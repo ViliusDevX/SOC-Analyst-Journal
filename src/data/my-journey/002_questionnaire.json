@@ -1,0 +1,467 @@
+{
+  "id": "002",
+  "title": "Second CySA+ Practice Set",
+  "date": "2026-05-12",
+  "status": "Raw Answers",
+  "summary": "20 additional CySA+ practice questions and 5 SOC scenarios focused on identity attacks, memory-resident malware, insider threat, web compromise, and SOC operations.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Log Analysis",
+      "status": "Raw Answer",
+      "question": "A SOC analyst notices that endpoint logs and firewall logs differ by approximately 52 minutes during an investigation.\n\nWhich of the following is the MOST likely explanation?",
+      "options": [
+        "The host is compromised",
+        "The firewall is offline",
+        "Time synchronization/NTP issue",
+        "The SIEM is corrupted"
+      ],
+      "myAnswer": "C, because NTP is responsible for synchronizing time"
+    },
+    {
+      "id": 2,
+      "topic": "Malware Analysis",
+      "status": "Raw Answer",
+      "question": "An EDR alert identifies suspicious activity from:\nsvch0st.exe\n\nWhich of the following would BEST help verify whether the file is malicious?",
+      "options": [
+        "File hashing",
+        "Browser history",
+        "Screen resolution",
+        "Registry startup order"
+      ],
+      "myAnswer": "I think A, because other variants are not helpful in this situation"
+    },
+    {
+      "id": 3,
+      "topic": "Threat Intelligence",
+      "status": "Raw Answer",
+      "question": "An organization wants the MOST trustworthy source of intelligence regarding active ransomware campaigns targeting healthcare infrastructure.\n\nWhich source is BEST?",
+      "options": [
+        "Anonymous Telegram channels",
+        "Industry government advisories",
+        "Public Discord communities",
+        "Social media cybersecurity influencers"
+      ],
+      "myAnswer": "B, because they are closest to real info about real threats, especially healthcare sector."
+    },
+    {
+      "id": 4,
+      "topic": "SOAR",
+      "status": "Raw Answer",
+      "question": "A SOC team receives thousands of repetitive low-value alerts daily.\n\nWhich solution would MOST effectively automate duplicate alert handling?",
+      "options": [
+        "SOAR",
+        "IDS",
+        "NAC",
+        "VPN"
+      ],
+      "myAnswer": "A, because SOAR automates the whole detection process."
+    },
+    {
+      "id": 5,
+      "topic": "Compensating Controls",
+      "status": "Raw Answer",
+      "question": "A legacy industrial control system cannot be patched because updates would interrupt manufacturing operations.\n\nWhich control BEST reduces organizational risk?",
+      "options": [
+        "Increase internet bandwidth",
+        "Strict network segmentation",
+        "Disable logging",
+        "Allow unrestricted remote access"
+      ],
+      "myAnswer": "B, because if system can't be patched, it should be as hard to access for attackers as possible"
+    },
+    {
+      "id": 6,
+      "topic": "MITRE ATT&CK",
+      "status": "Raw Answer",
+      "question": "Which framework is MOST useful for mapping attacker behavior and TTPs?",
+      "options": [
+        "CVSS",
+        "MITRE ATT&CK",
+        "OWASP",
+        "NIST RMF"
+      ],
+      "myAnswer": "B"
+    },
+    {
+      "id": 7,
+      "topic": "Incident Response",
+      "status": "Raw Answer",
+      "question": "A public-facing Linux web server is actively encrypting files during a ransomware attack.\n\nWhat should be done FIRST?",
+      "options": [
+        "Apply patches",
+        "Quarantine/isolate the server",
+        "Restore backups immediately",
+        "Notify all employees"
+      ],
+      "myAnswer": "B, to stop spreading to other systems and minimize damage"
+    },
+    {
+      "id": 8,
+      "topic": "Incident Response",
+      "status": "Raw Answer",
+      "question": "During which incident response phase is root cause analysis MOST likely performed?",
+      "options": [
+        "Preparation",
+        "Detection and analysis",
+        "Post-incident activities",
+        "Recovery"
+      ],
+      "myAnswer": "B, because during detection and analysis finding out what is the root cause of attack can help a lot in containment and eradication"
+    },
+    {
+      "id": 9,
+      "topic": "Post-Incident Review",
+      "status": "Raw Answer",
+      "question": "After a major security incident concludes, which activity BEST improves future response capabilities?",
+      "options": [
+        "Conduct lessons-learned meeting",
+        "Disable affected systems permanently",
+        "Ignore low-severity alerts",
+        "Delete old SIEM data"
+      ],
+      "myAnswer": "A, because next time IR team would have more experience and knowledge"
+    },
+    {
+      "id": 10,
+      "topic": "Eradication",
+      "status": "Raw Answer",
+      "question": "An analyst has removed malware persistence mechanisms and deleted malicious files from a compromised endpoint.\n\nWhich incident response phase does this represent?",
+      "options": [
+        "Recovery",
+        "Preparation",
+        "Containment",
+        "Eradication"
+      ],
+      "myAnswer": "D"
+    },
+    {
+      "id": 11,
+      "topic": "MFA Attacks",
+      "status": "Raw Answer",
+      "question": "A cloud administrator receives repeated MFA push notifications without attempting login.\n\nWhich attack is MOST likely occurring?",
+      "options": [
+        "MFA fatigue attack",
+        "Kerberoasting",
+        "ARP spoofing",
+        "Pass-the-hash"
+      ],
+      "myAnswer": "A, because in this attack attackers goal is to make victim tired and overwhelmed by MFA requests so victim just accepts them"
+    },
+    {
+      "id": 12,
+      "topic": "Memory Forensics",
+      "status": "Raw Answer",
+      "question": "A security analyst wants to identify malicious activity that exists only in volatile memory.\n\nWhich action is BEST?",
+      "options": [
+        "Analyze RAM dump",
+        "Reboot system",
+        "Review printer logs",
+        "Disable DHCP"
+      ],
+      "myAnswer": "A, because RAM hold info until power is turned off."
+    },
+    {
+      "id": 13,
+      "topic": "UEBA",
+      "status": "Raw Answer",
+      "question": "Which technology BEST helps identify abnormal user behavior over time?",
+      "options": [
+        "VLAN segmentation",
+        "UEBA",
+        "RAID",
+        "Load balancing"
+      ],
+      "myAnswer": "B, because UEBA uses pattern recognition over time for specific user"
+    },
+    {
+      "id": 14,
+      "topic": "Cloud / Identity",
+      "status": "Raw Answer",
+      "question": "An analyst notices OAuth tokens being used from unusual geographic locations after a phishing campaign.\n\nWhat is the MOST likely concern?",
+      "options": [
+        "Token/session hijacking",
+        "DNS poisoning",
+        "Physical theft",
+        "SSL certificate renewal"
+      ],
+      "myAnswer": "A, because attacker gained access to Tokens/session and is using them"
+    },
+    {
+      "id": 15,
+      "topic": "Persistence / C2",
+      "status": "Raw Answer",
+      "question": "A SIEM detects:\n- PowerShell launched from Excel\n- External HTTPS connection\n- Registry Run key creation\n\nWhat is the MOST likely attacker objective?",
+      "options": [
+        "Persistence and command-and-control",
+        "Asset inventory",
+        "Backup synchronization",
+        "Patch deployment"
+      ],
+      "myAnswer": "A, because connecting to external https, creating registry run keys and launching powershell from weird places are typical indicators of persistence and C2 phase"
+    },
+    {
+      "id": 16,
+      "topic": "Compensating Controls",
+      "status": "Raw Answer",
+      "question": "Which of the following BEST describes a compensating control?",
+      "options": [
+        "Ignoring a vulnerability",
+        "A different security measure reducing risk when primary mitigation is unavailable",
+        "Disabling all logs",
+        "Publicly disclosing vulnerabilities"
+      ],
+      "myAnswer": "B, because compensating control is control where its impossible to fully fix vulnerability or patch system so defender just compensates it, trying to minimize the damage in other ways."
+    },
+    {
+      "id": 17,
+      "topic": "Malware Analysis",
+      "status": "Raw Answer",
+      "question": "A company wants to safely analyze suspicious malware without risking production systems.\n\nWhich solution is BEST?",
+      "options": [
+        "Sandbox environment",
+        "Production workstation",
+        "VPN concentrator",
+        "NAC appliance"
+      ],
+      "myAnswer": "A, because sandboxes are made to be isolated and safe."
+    },
+    {
+      "id": 18,
+      "topic": "Data Exfiltration",
+      "status": "Raw Answer",
+      "question": "An analyst notices a large volume of outbound encrypted traffic to a domain registered two days ago.\n\nWhat should be investigated FIRST?",
+      "options": [
+        "Possible data exfiltration",
+        "Printer firmware updates",
+        "DHCP conflicts",
+        "Local password policy"
+      ],
+      "myAnswer": "A, because traffic to newly registered domains is typical for data exfil"
+    },
+    {
+      "id": 19,
+      "topic": "Persistence",
+      "status": "Raw Answer",
+      "question": "A host repeatedly reconnects externally after reboot despite malware removal attempts.\n\nWhich is the MOST likely explanation?",
+      "options": [
+        "Persistence mechanism still exists",
+        "Browser cache issue",
+        "DNS timeout",
+        "VLAN misconfiguration"
+      ],
+      "myAnswer": "A, because after removal attempts of malware attacker still has persistence in machine"
+    },
+    {
+      "id": 20,
+      "topic": "Threat Hunting",
+      "status": "Raw Answer",
+      "question": "Which of the following BEST describes threat hunting?",
+      "options": [
+        "Responding only to SIEM alerts",
+        "Proactively searching for indicators of compromise",
+        "Installing endpoint protection",
+        "Creating backups"
+      ],
+      "myAnswer": "B, threat hunting is basically searching/hunting for threats, instead of passively waiting"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "Microsoft 365 OAuth Token Abuse",
+      "category": "Cloud / Identity",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Microsoft 365 Alerts",
+          "items": [
+            "Multiple successful logins from different countries within 15 minutes",
+            "OAuth application consent granted to:",
+            "\"Mail-Backup-Sync\""
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "User recently clicked phishing link",
+            "MFA was enabled",
+            "OAuth token remains active after password reset"
+          ]
+        }
+      ],
+      "tasks": [
+        "What MOST likely occurred?",
+        "Why did password reset not fully solve the issue?",
+        "What should be revoked FIRST?",
+        "What logs would help investigation most?",
+        "What controls could reduce similar attacks?"
+      ],
+      "myAnswers": [
+        "Token/session hijack, because attacker can bypass MFA by having tokens of authenticated user",
+        "Because attacker has access to account/session, so resetting password isn't short term fix",
+        "Lower \"Mail-backup-sync\" accounts privileges or disable it fully until deeper investigation",
+        "IP addresses of logins, OAUTH access granting service logs",
+        "UEBA by checking unusual country logins, phishing training campaign"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Memory-Resident Malware",
+      "category": "Malware Analysis",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "EDR Alerts",
+          "items": [
+            "powershell.exe executed with encoded commands",
+            "No malicious files found on disk",
+            "Suspicious outbound HTTPS traffic observed",
+            "Malware disappears after reboot"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "RAM usage unusually high",
+            "Antivirus detects nothing"
+          ]
+        }
+      ],
+      "tasks": [
+        "What type of malware behavior is MOST likely occurring?",
+        "Why might antivirus fail to detect it?",
+        "What forensic evidence should be collected FIRST?",
+        "What containment action is MOST appropriate?",
+        "What indicators strongly suggest memory-resident malware?"
+      ],
+      "myAnswers": [
+        "Malware living in RAM and doing data exfil",
+        "Because antivirus doesn't scan RAM directly",
+        "Memory dump, suspicious traffic",
+        "Isolate machine from internet/network",
+        "RAM usage high, malware disappearing, no malicious files found on disk"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Insider Threat Data Exfiltration",
+      "category": "Insider Threat",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "DLP Alerts",
+          "items": [
+            "Employee downloaded 12GB of engineering documents",
+            "Activity occurred at 2:43 AM",
+            "Files uploaded to personal cloud storage"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "Employee submitted resignation two days ago",
+            "VPN access originated from normal geographic location",
+            "No malware indicators detected"
+          ]
+        }
+      ],
+      "tasks": [
+        "What threat scenario is MOST likely?",
+        "What should analysts verify FIRST?",
+        "What evidence would strengthen insider threat suspicion?",
+        "What containment actions are appropriate?",
+        "How should this incident severity be classified?"
+      ],
+      "myAnswers": [
+        "Insider threat, employee might be threat doing data exfil or spying",
+        "Employees identity, then any suspicion on being insider threat",
+        "Recent resignation submition, weird activity timing, and possible sensitive data downloaded",
+        "Lock account, revoke access",
+        "High, because of possible sensitive data exfil"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Web Shell & Server Compromise",
+      "category": "Web Server Compromise",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Web Server Logs",
+          "items": [
+            "POST /uploads/shell.php"
+          ]
+        },
+        {
+          "title": "Shortly afterward",
+          "items": [
+            "cmd.exe /c whoami",
+            "cmd.exe /c net user"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "Outbound HTTPS traffic to VPS provider",
+            "New local admin account created",
+            "IIS logs show repeated POST requests"
+          ]
+        }
+      ],
+      "tasks": [
+        "What attack behavior is MOST likely occurring?",
+        "What persistence indicators exist?",
+        "What should be isolated FIRST?",
+        "What forensic artifacts would be valuable?",
+        "Which MITRE ATT&CK techniques are likely involved?"
+      ],
+      "myAnswers": [
+        "Reverse shell execution through web server, then priv esc (new admin account created), then data exfil",
+        "Outbound traffic, new local admin account",
+        "Affected server/machine, then admin acc",
+        "POST requests, cmd execution, outbound traffic",
+        "T1190, then T1136.001, then T1567"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "SOC Alert Fatigue",
+      "category": "SOC Operations",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "SOC Metrics",
+          "items": [
+            "18,000 alerts per day",
+            "Analysts closing most alerts manually",
+            "Many duplicate phishing detections",
+            "Mean response time increasing weekly"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "Several true positives missed recently",
+            "Analysts report burnout",
+            "Executive leadership requests improvement plan"
+          ]
+        }
+      ],
+      "tasks": [
+        "What is the PRIMARY operational problem?",
+        "Which technologies/processes could improve efficiency?",
+        "What risks does alert fatigue create?",
+        "What metrics should leadership monitor?",
+        "What SIEM improvements would MOST reduce noise?"
+      ],
+      "myAnswers": [
+        "Un-tuned detection logic, too much manual work",
+        "SIEM/SOAR",
+        "Missed true positives, analysts burnout",
+        "Missed true postiives, analysts well being, increasing response time weekly",
+        "Tuning and specifying detection logic to reduce false positives and reduce manual work"
+      ]
+    }
+  ]
+}
