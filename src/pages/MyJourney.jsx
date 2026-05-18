@@ -11,12 +11,12 @@ function MyJourney() {
       <section>
         <button
           onClick={() => setSelectedEntry(null)}
-          className="mb-6 text-zinc-400 hover:text-white transition"
+          className="mb-6 text-zinc-400 hover:text-white transition hover:cursor-pointer"
         >
           ← Back to entries
         </button>
 
-        <div className="mb-10">
+        <div className="mb-10 ">
           <p className="text-sm text-emerald-400 mb-2">
             Entry #{selectedEntry.id}
           </p>
@@ -70,7 +70,7 @@ function MyJourney() {
           <button
             key={entry.id}
             onClick={() => setSelectedEntry(entry)}
-            className="text-left border border-zinc-800 bg-zinc-950 rounded-2xl p-6 hover:border-emerald-500 transition"
+            className="text-left border border-zinc-800 bg-zinc-950 rounded-2xl p-6 hover:border-emerald-500 transition hover:cursor-pointer"
           >
             <p className="text-sm text-emerald-400 mb-2">
               Entry #{entry.id}
