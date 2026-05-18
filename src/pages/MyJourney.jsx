@@ -5,7 +5,7 @@ import ScenarioCard from "../components/ScenarioCard";
 
 function MyJourney() {
   const [selectedEntry, setSelectedEntry] = useState(null);
-
+  const [showReviews, setShowReviews] = useState(false);
   if (selectedEntry) {
     return (
       <section>
@@ -14,6 +14,12 @@ function MyJourney() {
           className="mb-6 text-zinc-400 hover:text-white transition hover:cursor-pointer"
         >
           ← Back to entries
+        </button>
+
+        <button
+        onClick={() => setShowReviews(!showReviews)}
+        className="mb-6 ml-4 border border-zinc-700 px-4 py-2 rounded-lg hover:border-emerald-400 hover:text-emerald-400 hover:cursor-pointer transition">
+        {showReviews ? "Hide Answer Check" : "Check All Answers"}
         </button>
 
         <div className="mb-10 ">
@@ -37,7 +43,11 @@ function MyJourney() {
 
           <div className="grid gap-5 md:grid-cols-2">
             {selectedEntry.questions.map((question) => (
-              <QuestionsCard key={question.id} question={question} />
+              <QuestionsCard
+                key={question.id}
+                question={question}
+                showReview={showReviews}
+              />
             ))}
           </div>
         </section>
@@ -49,7 +59,11 @@ function MyJourney() {
 
           <div className="grid gap-6">
             {selectedEntry.scenarios.map((scenario) => (
-              <ScenarioCard key={scenario.id} scenario={scenario} />
+              <ScenarioCard
+                key={scenario.id}
+                scenario={scenario}
+                showReview={showReviews}
+              />
             ))}
           </div>
         </section>

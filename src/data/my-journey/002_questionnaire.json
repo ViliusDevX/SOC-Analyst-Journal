@@ -16,7 +16,8 @@
         "Time synchronization/NTP issue",
         "The SIEM is corrupted"
       ],
-      "myAnswer": "C, because NTP is responsible for synchronizing time"
+      "myAnswer": "C, because NTP is responsible for synchronizing time",
+      "review": "correct"
     },
     {
       "id": 2,
@@ -29,7 +30,8 @@
         "Screen resolution",
         "Registry startup order"
       ],
-      "myAnswer": "I think A, because other variants are not helpful in this situation"
+      "myAnswer": "I think A, because other variants are not helpful in this situation",
+      "review": "correct"
     },
     {
       "id": 3,
@@ -42,7 +44,8 @@
         "Public Discord communities",
         "Social media cybersecurity influencers"
       ],
-      "myAnswer": "B, because they are closest to real info about real threats, especially healthcare sector."
+      "myAnswer": "B, because they are closest to real info about real threats, especially healthcare sector.",
+      "review": "correct"
     },
     {
       "id": 4,
@@ -55,7 +58,8 @@
         "NAC",
         "VPN"
       ],
-      "myAnswer": "A, because SOAR automates the whole detection process."
+      "myAnswer": "A, because SOAR automates the whole detection process.",
+      "review": "correct"
     },
     {
       "id": 5,
@@ -68,7 +72,8 @@
         "Disable logging",
         "Allow unrestricted remote access"
       ],
-      "myAnswer": "B, because if system can't be patched, it should be as hard to access for attackers as possible"
+      "myAnswer": "B, because if system can't be patched, it should be as hard to access for attackers as possible",
+      "review": "correct"
     },
     {
       "id": 6,
@@ -81,7 +86,8 @@
         "OWASP",
         "NIST RMF"
       ],
-      "myAnswer": "B"
+      "myAnswer": "B",
+      "review": "correct"
     },
     {
       "id": 7,
@@ -94,7 +100,8 @@
         "Restore backups immediately",
         "Notify all employees"
       ],
-      "myAnswer": "B, to stop spreading to other systems and minimize damage"
+      "myAnswer": "B, to stop spreading to other systems and minimize damage",
+      "review": "correct"
     },
     {
       "id": 8,
@@ -107,7 +114,8 @@
         "Post-incident activities",
         "Recovery"
       ],
-      "myAnswer": "B, because during detection and analysis finding out what is the root cause of attack can help a lot in containment and eradication"
+      "myAnswer": "B, because during detection and analysis finding out what is the root cause of attack can help a lot in containment and eradication",
+      "review": "incorrect"
     },
     {
       "id": 9,
@@ -120,7 +128,8 @@
         "Ignore low-severity alerts",
         "Delete old SIEM data"
       ],
-      "myAnswer": "A, because next time IR team would have more experience and knowledge"
+      "myAnswer": "A, because next time IR team would have more experience and knowledge",
+      "review": "correct"
     },
     {
       "id": 10,
@@ -133,7 +142,8 @@
         "Containment",
         "Eradication"
       ],
-      "myAnswer": "D"
+      "myAnswer": "D",
+      "review": "correct"
     },
     {
       "id": 11,
@@ -146,7 +156,8 @@
         "ARP spoofing",
         "Pass-the-hash"
       ],
-      "myAnswer": "A, because in this attack attackers goal is to make victim tired and overwhelmed by MFA requests so victim just accepts them"
+      "myAnswer": "A, because in this attack attackers goal is to make victim tired and overwhelmed by MFA requests so victim just accepts them",
+      "review": "correct"
     },
     {
       "id": 12,
@@ -159,7 +170,8 @@
         "Review printer logs",
         "Disable DHCP"
       ],
-      "myAnswer": "A, because RAM hold info until power is turned off."
+      "myAnswer": "A, because RAM hold info until power is turned off.",
+      "review": "correct"
     },
     {
       "id": 13,
@@ -172,7 +184,8 @@
         "RAID",
         "Load balancing"
       ],
-      "myAnswer": "B, because UEBA uses pattern recognition over time for specific user"
+      "myAnswer": "B, because UEBA uses pattern recognition over time for specific user",
+      "review": "correct"
     },
     {
       "id": 14,
@@ -185,7 +198,8 @@
         "Physical theft",
         "SSL certificate renewal"
       ],
-      "myAnswer": "A, because attacker gained access to Tokens/session and is using them"
+      "myAnswer": "A, because attacker gained access to Tokens/session and is using them",
+      "review": "correct"
     },
     {
       "id": 15,
@@ -198,7 +212,8 @@
         "Backup synchronization",
         "Patch deployment"
       ],
-      "myAnswer": "A, because connecting to external https, creating registry run keys and launching powershell from weird places are typical indicators of persistence and C2 phase"
+      "myAnswer": "A, because connecting to external https, creating registry run keys and launching powershell from weird places are typical indicators of persistence and C2 phase",
+      "review": "correct"
     },
     {
       "id": 16,
@@ -211,7 +226,8 @@
         "Disabling all logs",
         "Publicly disclosing vulnerabilities"
       ],
-      "myAnswer": "B, because compensating control is control where its impossible to fully fix vulnerability or patch system so defender just compensates it, trying to minimize the damage in other ways."
+      "myAnswer": "B, because compensating control is control where its impossible to fully fix vulnerability or patch system so defender just compensates it, trying to minimize the damage in other ways.",
+      "review": "correct"
     },
     {
       "id": 17,
@@ -224,7 +240,8 @@
         "VPN concentrator",
         "NAC appliance"
       ],
-      "myAnswer": "A, because sandboxes are made to be isolated and safe."
+      "myAnswer": "A, because sandboxes are made to be isolated and safe.",
+      "review": "correct"
     },
     {
       "id": 18,
@@ -237,7 +254,8 @@
         "DHCP conflicts",
         "Local password policy"
       ],
-      "myAnswer": "A, because traffic to newly registered domains is typical for data exfil"
+      "myAnswer": "A, because traffic to newly registered domains is typical for data exfil",
+      "review": "correct"
     },
     {
       "id": 19,
@@ -250,7 +268,8 @@
         "DNS timeout",
         "VLAN misconfiguration"
       ],
-      "myAnswer": "A, because after removal attempts of malware attacker still has persistence in machine"
+      "myAnswer": "A, because after removal attempts of malware attacker still has persistence in machine",
+      "review": "correct"
     },
     {
       "id": 20,
@@ -263,7 +282,8 @@
         "Installing endpoint protection",
         "Creating backups"
       ],
-      "myAnswer": "B, threat hunting is basically searching/hunting for threats, instead of passively waiting"
+      "myAnswer": "B, threat hunting is basically searching/hunting for threats, instead of passively waiting",
+      "review": "correct"
     }
   ],
   "scenarios": [
@@ -298,11 +318,26 @@
         "What controls could reduce similar attacks?"
       ],
       "myAnswers": [
-        "Token/session hijack, because attacker can bypass MFA by having tokens of authenticated user",
-        "Because attacker has access to account/session, so resetting password isn't short term fix",
-        "Lower \"Mail-backup-sync\" accounts privileges or disable it fully until deeper investigation",
-        "IP addresses of logins, OAUTH access granting service logs",
-        "UEBA by checking unusual country logins, phishing training campaign"
+        {
+          "answer": "Token/session hijack, because attacker can bypass MFA by having tokens of authenticated user",
+          "review": "correct"
+        },
+        {
+          "answer": "Because attacker has access to account/session, so resetting password isn't short term fix",
+          "review": "partial"
+        },
+        {
+          "answer": "Lower \"Mail-backup-sync\" accounts privileges or disable it fully until deeper investigation",
+          "review": "partial"
+        },
+        {
+          "answer": "IP addresses of logins, OAUTH access granting service logs",
+          "review": "correct"
+        },
+        {
+          "answer": "UEBA by checking unusual country logins, phishing training campaign",
+          "review": "partial"
+        }
       ]
     },
     {
@@ -336,11 +371,26 @@
         "What indicators strongly suggest memory-resident malware?"
       ],
       "myAnswers": [
-        "Malware living in RAM and doing data exfil",
-        "Because antivirus doesn't scan RAM directly",
-        "Memory dump, suspicious traffic",
-        "Isolate machine from internet/network",
-        "RAM usage high, malware disappearing, no malicious files found on disk"
+        {
+          "answer": "Malware living in RAM and doing data exfil",
+          "review": "partial"
+        },
+        {
+          "answer": "Because antivirus doesn't scan RAM directly",
+          "review": "partial"
+        },
+        {
+          "answer": "Memory dump, suspicious traffic",
+          "review": "correct"
+        },
+        {
+          "answer": "Isolate machine from internet/network",
+          "review": "correct"
+        },
+        {
+          "answer": "RAM usage high, malware disappearing, no malicious files found on disk",
+          "review": "correct"
+        }
       ]
     },
     {
@@ -374,11 +424,26 @@
         "How should this incident severity be classified?"
       ],
       "myAnswers": [
-        "Insider threat, employee might be threat doing data exfil or spying",
-        "Employees identity, then any suspicion on being insider threat",
-        "Recent resignation submition, weird activity timing, and possible sensitive data downloaded",
-        "Lock account, revoke access",
-        "High, because of possible sensitive data exfil"
+        {
+          "answer": "Insider threat, employee might be threat doing data exfil or spying",
+          "review": "correct"
+        },
+        {
+          "answer": "Employees identity, then any suspicion on being insider threat",
+          "review": "partial"
+        },
+        {
+          "answer": "Recent resignation submition, weird activity timing, and possible sensitive data downloaded",
+          "review": "correct"
+        },
+        {
+          "answer": "Lock account, revoke access",
+          "review": "correct"
+        },
+        {
+          "answer": "High, because of possible sensitive data exfil",
+          "review": "correct"
+        }
       ]
     },
     {
@@ -417,11 +482,26 @@
         "Which MITRE ATT&CK techniques are likely involved?"
       ],
       "myAnswers": [
-        "Reverse shell execution through web server, then priv esc (new admin account created), then data exfil",
-        "Outbound traffic, new local admin account",
-        "Affected server/machine, then admin acc",
-        "POST requests, cmd execution, outbound traffic",
-        "T1190, then T1136.001, then T1567"
+        {
+          "answer": "Reverse shell execution through web server, then priv esc (new admin account created), then data exfil",
+          "review": "partial"
+        },
+        {
+          "answer": "Outbound traffic, new local admin account",
+          "review": "partial"
+        },
+        {
+          "answer": "Affected server/machine, then admin acc",
+          "review": "correct"
+        },
+        {
+          "answer": "POST requests, cmd execution, outbound traffic",
+          "review": "correct"
+        },
+        {
+          "answer": "T1190, then T1136.001, then T1567",
+          "review": "partial"
+        }
       ]
     },
     {
@@ -456,11 +536,26 @@
         "What SIEM improvements would MOST reduce noise?"
       ],
       "myAnswers": [
-        "Un-tuned detection logic, too much manual work",
-        "SIEM/SOAR",
-        "Missed true positives, analysts burnout",
-        "Missed true postiives, analysts well being, increasing response time weekly",
-        "Tuning and specifying detection logic to reduce false positives and reduce manual work"
+        {
+          "answer": "Un-tuned detection logic, too much manual work",
+          "review": "correct"
+        },
+        {
+          "answer": "SIEM/SOAR",
+          "review": "correct"
+        },
+        {
+          "answer": "Missed true positives, analysts burnout",
+          "review": "correct"
+        },
+        {
+          "answer": "Missed true postiives, analysts well being, increasing response time weekly",
+          "review": "correct"
+        },
+        {
+          "answer": "Tuning and specifying detection logic to reduce false positives and reduce manual work",
+          "review": "correct"
+        }
       ]
     }
   ]

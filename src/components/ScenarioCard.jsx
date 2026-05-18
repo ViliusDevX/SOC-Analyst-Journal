@@ -1,4 +1,40 @@
-function ScenarioCard({ scenario }) {
+function ScenarioCard({ scenario, showReview }) {
+  const getAnswerClass = (review) => {
+    if (!showReview) {
+      return "border-zinc-800 bg-zinc-950";
+    }
+
+    if (review === "correct") {
+      return "border-green-500 bg-green-950/20 shadow-green-500/20";
+    }
+
+    if (review === "partial") {
+      return "border-yellow-500 bg-yellow-950/20 shadow-yellow-500/20";
+    }
+
+    if (review === "incorrect") {
+      return "border-red-500 bg-red-950/20 shadow-red-500/20";
+    }
+
+    return "border-zinc-800 bg-zinc-950";
+  };
+
+  const getReviewLabelClass = (review) => {
+    if (review === "correct") {
+      return "text-green-400";
+    }
+
+    if (review === "partial") {
+      return "text-yellow-400";
+    }
+
+    if (review === "incorrect") {
+      return "text-red-400";
+    }
+
+    return "text-zinc-500";
+  };
+
   return (
     <article className="border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
       <div className="flex flex-wrap justify-between gap-4 mb-6">
@@ -74,12 +110,24 @@ function ScenarioCard({ scenario }) {
           </h4>
 
           <ol className="space-y-3 list-decimal list-inside">
-            {scenario.myAnswers.map((answer) => (
+            {scenario.myAnswers.map((item) => (
               <li
-                key={answer}
-                className="text-sm text-zinc-300 leading-relaxed bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2"
+                key={item.answer}
+                className={`text-sm text-zinc-300 leading-relaxed border rounded-lg px-3 py-2 transition-all duration-500 ${getAnswerClass(
+                  item.review
+                )}`}
               >
-                {answer}
+                {item.answer}
+
+                {showReview && (
+                  <span
+                    className={`block mt-2 text-xs font-semibold uppercase tracking-wide ${getReviewLabelClass(
+                      item.review
+                    )}`}
+                  >
+                    {item.review || "unreviewed"}
+                  </span>
+                )}
               </li>
             ))}
           </ol>

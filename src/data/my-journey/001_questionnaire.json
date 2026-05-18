@@ -16,7 +16,8 @@
         "DNS tunneling",
         "Web application attack"
       ],
-      "myAnswer": "B, because multiple failed logins followed by 4672 are highly suspicious."
+      "myAnswer": "B, because multiple failed logins followed by 4672 are highly suspicious.",
+      "review": "correct"
     },
     {
       "id": 2,
@@ -29,7 +30,8 @@
         "Password spraying",
         "ARP poisoning"
       ],
-      "myAnswer": "B, because this behavior is likely caused by malicious file."
+      "myAnswer": "B, because this behavior is likely caused by malicious file.",
+      "review": "correct"
     },
     {
       "id": 3,
@@ -42,7 +44,8 @@
         "Validate the vulnerability manually",
         "Restore from backup"
       ],
-      "myAnswer": "C, because server is behind reverse proxy, so report showing critical Apache vulnerability is probably false positive, because of false banner grabbing."
+      "myAnswer": "C, because server is behind reverse proxy, so report showing critical Apache vulnerability is probably false positive, because of false banner grabbing.",
+      "review": "correct"
     },
     {
       "id": 4,
@@ -55,7 +58,8 @@
         "Command-and-control beaconing",
         "Backup synchronization"
       ],
-      "myAnswer": "C, because newly registered domains and timed requests are usual for C2."
+      "myAnswer": "C, because newly registered domains and timed requests are usual for C2.",
+      "review": "correct"
     },
     {
       "id": 5,
@@ -68,7 +72,8 @@
         "Forged Kerberos ticket usage",
         "Brute-force attack against one account"
       ],
-      "myAnswer": "B, because in this case attacker gets access to pairs of stolen creds, and uses them on various accounts."
+      "myAnswer": "B, because in this case attacker gets access to pairs of stolen creds, and uses them on various accounts.",
+      "review": "correct"
     },
     {
       "id": 6,
@@ -81,7 +86,8 @@
         "MITRE ATT&CK",
         "CVSS"
       ],
-      "myAnswer": "C, because MITRE ATT&CK is a framework that include various APT TTPs."
+      "myAnswer": "C, because MITRE ATT&CK is a framework that include various APT TTPs.",
+      "review": "correct"
     },
     {
       "id": 7,
@@ -94,7 +100,8 @@
         "Frequent DHCP renewals",
         "Browser cache changes"
       ],
-      "myAnswer": "A, because long queries are used to obfuscate/mask data exfil."
+      "myAnswer": "A, because long queries are used to obfuscate/mask data exfil.",
+      "review": "correct"
     },
     {
       "id": 8,
@@ -107,7 +114,8 @@
         "SQL injection",
         "Backup verification"
       ],
-      "myAnswer": "B, because /bin/bash indicates priv esc and nmap is tool used for reconnaissance."
+      "myAnswer": "B, because /bin/bash indicates priv esc and nmap is tool used for reconnaissance.",
+      "review": "correct"
     },
     {
       "id": 9,
@@ -120,7 +128,8 @@
         "Baselining and correlation tuning",
         "Ignoring alerts from administrators"
       ],
-      "myAnswer": "C, because tuning and narrowing detection rules would create less false positives."
+      "myAnswer": "C, because tuning and narrowing detection rules would create less false positives.",
+      "review": "correct"
     },
     {
       "id": 10,
@@ -133,7 +142,8 @@
         "Isolate the host",
         "Notify legal department"
       ],
-      "myAnswer": "C, because first step in IR is containment"
+      "myAnswer": "C, because first step in IR is containment",
+      "review": "correct"
     },
     {
       "id": 11,
@@ -146,7 +156,8 @@
         "Port scanning",
         "DNS resolution"
       ],
-      "myAnswer": "A, because ICMP is used for persistence? (not confident, forgot what ICMP means)"
+      "myAnswer": "A, because ICMP is used for persistence? (not confident, forgot what ICMP means)",
+      "review": "incorrect"
     },
     {
       "id": 12,
@@ -159,7 +170,8 @@
         "Asset inventory",
         "Vulnerability management"
       ],
-      "myAnswer": "A, because connecting to external IP indicates attempt to establish persistence."
+      "myAnswer": "A, because connecting to external IP indicates attempt to establish persistence.",
+      "review": "correct"
     },
     {
       "id": 13,
@@ -172,7 +184,8 @@
         "Port mirroring",
         "VLAN segmentation"
       ],
-      "myAnswer": "B, because UEBA is used to detect behavior anomalies, and impossible travel login is a suspicious anomaly"
+      "myAnswer": "B, because UEBA is used to detect behavior anomalies, and impossible travel login is a suspicious anomaly",
+      "review": "correct"
     },
     {
       "id": 14,
@@ -185,7 +198,8 @@
         "Version/banner detection mismatch",
         "Internet-facing application"
       ],
-      "myAnswer": "C, because false banner grabbing is a common false positive indicator, like with server behind reverse proxy"
+      "myAnswer": "C, because false banner grabbing is a common false positive indicator, like with server behind reverse proxy",
+      "review": "correct"
     },
     {
       "id": 15,
@@ -198,7 +212,8 @@
         "DNS resolution",
         "Software patching"
       ],
-      "myAnswer": "B, because -enc means encoded/obfuscated payload execution"
+      "myAnswer": "B, because -enc means encoded/obfuscated payload execution",
+      "review": "correct"
     },
     {
       "id": 16,
@@ -211,7 +226,8 @@
         "Eradication",
         "Preparation"
       ],
-      "myAnswer": "C, because eradication means removing any possible threat before doing post-incident analysis or recovering system"
+      "myAnswer": "C, because eradication means removing any possible threat before doing post-incident analysis or recovering system",
+      "review": "correct"
     },
     {
       "id": 17,
@@ -224,7 +240,8 @@
         "Wipe the workstation",
         "Disable file sharing company-wide"
       ],
-      "myAnswer": "B, because this behavior is suspicious (especially because of DLP alert and time), but not enough to immediately isolate the workstation."
+      "myAnswer": "B, because this behavior is suspicious (especially because of DLP alert and time), but not enough to immediately isolate the workstation.",
+      "review": "correct"
     },
     {
       "id": 18,
@@ -237,7 +254,8 @@
         "Windows process creation / Sysmon logs",
         "Printer logs"
       ],
-      "myAnswer": "C, because WMI is Windows framework"
+      "myAnswer": "C, because WMI is Windows framework",
+      "review": "correct"
     },
     {
       "id": 19,
@@ -250,7 +268,8 @@
         "Pass-the-ticket",
         "Kerberoasting"
       ],
-      "myAnswer": "B, because in password spraying technique attacker uses one known password for many different accounts."
+      "myAnswer": "B, because in password spraying technique attacker uses one known password for many different accounts.",
+      "review": "correct"
     },
     {
       "id": 20,
@@ -263,7 +282,8 @@
         "Medium",
         "High/Critical"
       ],
-      "myAnswer": "D, because this is highly risky and dangerous situation, especially because of attackers ability to maintain persistence."
+      "myAnswer": "D, because this is highly risky and dangerous situation, especially because of attackers ability to maintain persistence.",
+      "review": "correct"
     }
   ],
   "scenarios": [
@@ -310,12 +330,30 @@
         "Write a simple detection logic idea."
       ],
       "myAnswers": [
-        "Phishing -> malicious file -> powershell execution -> connection to external ip -> persistence",
-        "Malicious file execution by opening phishing emails attachment",
-        "Connection to external ip and registry task creation",
-        "isolate the host",
-        "Powershell logs, Sysmon",
-        "(skipping this for now)"
+        {
+          "answer": "Phishing -> malicious file -> powershell execution -> connection to external ip -> persistence",
+          "review": "correct"
+        },
+        {
+          "answer": "Malicious file execution by opening phishing emails attachment",
+          "review": "correct"
+        },
+        {
+          "answer": "Connection to external ip and registry task creation",
+          "review": "partial"
+        },
+        {
+          "answer": "isolate the host",
+          "review": "correct"
+        },
+        {
+          "answer": "Powershell logs, Sysmon",
+          "review": "correct"
+        },
+        {
+          "answer": "(skipping this for now)",
+          "review": "incorrect"
+        }
       ]
     },
     {
@@ -349,11 +387,26 @@
         "What SIEM detection logic could detect this?"
       ],
       "myAnswers": [
-        "data exfil through DNS tunneling",
-        "Because of high entropy queries",
-        "Investigate domains and sent traffic",
-        "Block suspicious domains",
-        "Possible DNS tunneling detection, high entropy suspicious domains"
+        {
+          "answer": "data exfil through DNS tunneling",
+          "review": "correct"
+        },
+        {
+          "answer": "Because of high entropy queries",
+          "review": "partial"
+        },
+        {
+          "answer": "Investigate domains and sent traffic",
+          "review": "partial"
+        },
+        {
+          "answer": "Block suspicious domains",
+          "review": "partial"
+        },
+        {
+          "answer": "Possible DNS tunneling detection, high entropy suspicious domains",
+          "review": "partial"
+        }
       ]
     },
     {
@@ -392,11 +445,26 @@
         "What evidence would confirm lateral movement?"
       ],
       "myAnswers": [
-        "Credential stuffing -> data exfil",
-        "T1041 (Exfiltration Over C2 Channel) and T1110.003 (Brute Force: Password Spraying)",
-        "Reset credentials, then isolate host",
-        "Accessed account with multiple 4625's",
-        "4672 logs"
+        {
+          "answer": "Credential stuffing -> data exfil",
+          "review": "incorrect"
+        },
+        {
+          "answer": "T1041 (Exfiltration Over C2 Channel) and T1110.003 (Brute Force: Password Spraying)",
+          "review": "incorrect"
+        },
+        {
+          "answer": "Reset credentials, then isolate host",
+          "review": "partial"
+        },
+        {
+          "answer": "Accessed account with multiple 4625's",
+          "review": "partial"
+        },
+        {
+          "answer": "4672 logs",
+          "review": "partial"
+        }
       ]
     },
     {
@@ -431,11 +499,26 @@
         "What compensating controls already exist?"
       ],
       "myAnswers": [
-        "No, because of highly possible false banner grabbing",
-        "Backend patch level, and then vulnerability risk level",
-        "Because server is behind reverse proxy, so scanner is showing misleading info",
-        "Low/Medium, but must be checked",
-        "Host segmentation"
+        {
+          "answer": "No, because of highly possible false banner grabbing",
+          "review": "correct"
+        },
+        {
+          "answer": "Backend patch level, and then vulnerability risk level",
+          "review": "correct"
+        },
+        {
+          "answer": "Because server is behind reverse proxy, so scanner is showing misleading info",
+          "review": "correct"
+        },
+        {
+          "answer": "Low/Medium, but must be checked",
+          "review": "partial"
+        },
+        {
+          "answer": "Host segmentation",
+          "review": "correct"
+        }
       ]
     },
     {
@@ -483,11 +566,26 @@
         "What evidence strongly suggests active compromise?"
       ],
       "myAnswers": [
-        "A, B, E, C, D",
-        "A and E, C and A, A and B, B and E",
-        "D",
-        "A",
-        "Obfuscated powershell command from Word, repeated traffic to new domains, weird DNS queries"
+        {
+          "answer": "A, B, E, C, D",
+          "review": "correct"
+        },
+        {
+          "answer": "A and E, C and A, A and B, B and E",
+          "review": "correct"
+        },
+        {
+          "answer": "D",
+          "review": "correct"
+        },
+        {
+          "answer": "A",
+          "review": "correct"
+        },
+        {
+          "answer": "Obfuscated powershell command from Word, repeated traffic to new domains, weird DNS queries",
+          "review": "correct"
+        }
       ]
     }
   ]
