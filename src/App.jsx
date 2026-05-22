@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import MyJourney from "./pages/MyJourney";
 import AboutMe from "./pages/AboutMe";
@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-black text-white">
-        <Navbar />
+        <NavBar />
 
         <main className="max-w-6xl mx-auto px-6 py-10">
           <Routes>
