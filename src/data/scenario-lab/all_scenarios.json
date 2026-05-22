@@ -33,7 +33,7 @@
           "Patch failure on the mail server"
         ],
         "correctAnswer": "B",
-        "explanation": "Multiple impossible-travel logins, OAuth consent, MFA being enabled, and token persistence after password reset strongly suggest OAuth token/session abuse after phishing."
+        "explanation": "Multiple successful logins from different countries, OAuth consent, MFA being enabled, and token persistence after password reset strongly suggest OAuth token/session abuse after phishing."
       },
       {
         "id": "2",
@@ -168,6 +168,697 @@
         ],
         "correctAnswer": "A",
         "explanation": "The combination of volatile behavior, lack of disk artifacts, encoded PowerShell, and outbound traffic strongly supports memory-resident malware."
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "difficulty": "hard",
+    "category": "DNS / Command and Control",
+    "title": "DNS Tunneling and Beaconing",
+    "sections": [
+      {
+        "title": "DNS Monitoring",
+        "items": [
+          "Host WS-014 issued 2,900 DNS TXT queries in 45 minutes",
+          "Queries contain long Base64-like subdomains",
+          "Example: dG9rZW5zLWV4ZmlsLTIwMjY=.sync-check.example"
+        ]
+      },
+      {
+        "title": "Network Evidence",
+        "items": [
+          "No matching browser activity on WS-014",
+          "Outbound traffic is almost entirely UDP/53",
+          "Domain was registered less than 24 hours ago"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What activity is MOST likely occurring?",
+        "options": [
+          "Normal DNS cache refresh",
+          "DNS tunneling or DNS-based data exfiltration",
+          "Kerberoasting",
+          "DHCP starvation"
+        ],
+        "correctAnswer": "B",
+        "explanation": "High-volume TXT queries, Base64-like subdomains, a newly registered domain, and no browser activity strongly indicate DNS tunneling or DNS-based exfiltration."
+      },
+      {
+        "id": "2",
+        "question": "Which evidence most strongly supports exfiltration rather than normal DNS use?",
+        "options": [
+          "The host has a valid DHCP lease",
+          "The DNS queries use long encoded-looking subdomains repeatedly",
+          "The workstation is joined to the domain",
+          "The destination uses UDP"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Long encoded-looking subdomains repeated at high volume are unusual for normal DNS and commonly used to carry data in DNS tunneling."
+      },
+      {
+        "id": "3",
+        "question": "What should the analyst do FIRST to contain the threat?",
+        "options": [
+          "Delete all DNS logs",
+          "Block the suspicious domain and isolate the affected host",
+          "Reboot the DNS server only",
+          "Disable all internal DNS resolution permanently"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Blocking the domain limits the communication path, while isolating WS-014 prevents continued exfiltration or command-and-control activity."
+      },
+      {
+        "id": "4",
+        "question": "Which logs would help determine the internal source and scope?",
+        "options": [
+          "DNS query logs, EDR telemetry, proxy logs, and DHCP mappings",
+          "Printer job history only",
+          "Badge access logs only",
+          "Monitor refresh-rate logs"
+        ],
+        "correctAnswer": "A",
+        "explanation": "DNS logs show the queries, DHCP maps IP to host, EDR shows local process context, and proxy/log telemetry helps scope related outbound activity."
+      },
+      {
+        "id": "5",
+        "question": "Which SIEM detection would be MOST useful for this behavior?",
+        "options": [
+          "Alert on any single DNS lookup",
+          "Alert on high-frequency DNS TXT queries with long/high-entropy subdomains to rare domains",
+          "Alert only when DNS is disabled",
+          "Alert on every DHCP renewal"
+        ],
+        "correctAnswer": "B",
+        "explanation": "A useful detection combines query type, frequency, entropy/length, and domain rarity to reduce false positives while catching tunneling behavior."
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "difficulty": "hard",
+    "category": "Lateral Movement",
+    "title": "WMI and SMB Lateral Movement",
+    "sections": [
+      {
+        "title": "Authentication Logs",
+        "items": [
+          "4625 failed logon events against multiple admin accounts",
+          "4624 successful logon for svc_backup from 10.0.8.22",
+          "4672 special privileges assigned to svc_backup"
+        ]
+      },
+      {
+        "title": "Endpoint and SMB Activity",
+        "items": [
+          "wmic /node:FILESERVER01 process call create \"cmd.exe /c whoami\"",
+          "Access to \\\\FILESERVER01\\c$",
+          "svc_backup has no normal history of interactive access"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What attack behavior is MOST likely occurring?",
+        "options": [
+          "Credential compromise followed by lateral movement",
+          "Normal backup verification",
+          "DNS tunneling only",
+          "Patch deployment"
+        ],
+        "correctAnswer": "A",
+        "explanation": "A service account with privileged logon, WMI remote command execution, and admin share access indicates compromised credentials being used for lateral movement."
+      },
+      {
+        "id": "2",
+        "question": "Which MITRE ATT&CK techniques best match the observed activity?",
+        "options": [
+          "T1047 WMI and T1021.002 SMB/Windows Admin Shares",
+          "T1190 Exploit Public-Facing Application only",
+          "T1499 Endpoint Denial of Service only",
+          "T1053 Scheduled Task only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The use of wmic maps to WMI execution, and access to c$ maps to SMB/Windows admin shares."
+      },
+      {
+        "id": "3",
+        "question": "What should be prioritized FIRST?",
+        "options": [
+          "Disable or reset the compromised svc_backup account and isolate involved hosts",
+          "Delete all Windows logs",
+          "Ignore because it is an internal IP",
+          "Patch the web application firewall"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The privileged account may still be usable, so disabling/resetting it and isolating involved hosts directly limits attacker movement."
+      },
+      {
+        "id": "4",
+        "question": "Which evidence most strongly confirms lateral movement?",
+        "options": [
+          "WMI remote process creation and SMB admin share access",
+          "A single DNS query to an internal domain controller",
+          "A browser cookie update",
+          "A successful DHCP renewal"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Remote command execution using WMI and administrative share access are strong indicators of lateral movement."
+      },
+      {
+        "id": "5",
+        "question": "Which log sources would be MOST valuable next?",
+        "options": [
+          "Windows Security logs, Sysmon, PowerShell/WMI logs, and EDR telemetry",
+          "Only printer logs",
+          "Only physical badge logs",
+          "Only monitor settings"
+        ],
+        "correctAnswer": "A",
+        "explanation": "These sources can show logon type, process creation, WMI activity, account usage, and affected hosts."
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "difficulty": "hard",
+    "category": "Web Application Compromise",
+    "title": "SQL Injection to Web Shell",
+    "sections": [
+      {
+        "title": "WAF Logs",
+        "items": [
+          "POST /login username=admin' OR 1=1 --",
+          "HTTP 200 responses following injection attempts",
+          "POST /uploads/profile.php with unusual file content"
+        ]
+      },
+      {
+        "title": "Server Evidence",
+        "items": [
+          "cmd.exe /c whoami executed by web server process",
+          "New local administrator account created",
+          "Large outbound HTTPS transfer to a VPS provider"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What attack chain MOST likely occurred?",
+        "options": [
+          "SQL injection followed by web shell upload and command execution",
+          "Normal user profile update",
+          "DNS poisoning followed by DHCP renewal",
+          "Local patch installation"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The injection payload, successful responses, suspicious upload, command execution, and new admin account indicate SQL injection leading to web shell compromise."
+      },
+      {
+        "id": "2",
+        "question": "Which evidence indicates command execution through the web server?",
+        "options": [
+          "cmd.exe /c whoami executed by the web server process",
+          "A normal HTTP 301 redirect",
+          "A DHCP renewal",
+          "A browser favicon request"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The web server process launching operating system commands is direct evidence of server-side command execution."
+      },
+      {
+        "id": "3",
+        "question": "Which evidence suggests persistence?",
+        "options": [
+          "The new local administrator account and retained web shell file",
+          "A single failed login attempt",
+          "Normal TLS negotiation",
+          "The server responding to ping"
+        ],
+        "correctAnswer": "A",
+        "explanation": "A new admin account and uploaded web shell can provide continued access after the initial exploit."
+      },
+      {
+        "id": "4",
+        "question": "What should incident responders isolate FIRST?",
+        "options": [
+          "The compromised web server",
+          "Every printer in the building",
+          "The public website's CSS files only",
+          "The DNS registrar account only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The compromised web server is actively executing commands and possibly exfiltrating data, so isolating it limits damage while preserving evidence."
+      },
+      {
+        "id": "5",
+        "question": "Which techniques are MOST relevant?",
+        "options": [
+          "Exploit Public-Facing Application, Web Shell, Create Account, and Exfiltration Over Web Service",
+          "Password policy enforcement only",
+          "DHCP starvation only",
+          "Wireless evil twin only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The attack uses a vulnerable web app, web shell execution, account creation for persistence, and outbound transfer that may indicate exfiltration."
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "difficulty": "medium",
+    "category": "Insider Threat / DLP",
+    "title": "Insider Data Exfiltration vs Account Compromise",
+    "sections": [
+      {
+        "title": "DLP Alerts",
+        "items": [
+          "18GB of engineering documents downloaded",
+          "Files uploaded to personal cloud storage",
+          "Activity occurred at 1:17 AM"
+        ]
+      },
+      {
+        "title": "Context",
+        "items": [
+          "Employee submitted resignation two days ago",
+          "Access originated from normal VPN location",
+          "UEBA flagged behavior as anomalous",
+          "No malware detected on workstation"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What are the TWO most likely explanations?",
+        "options": [
+          "Insider data theft or compromised account activity",
+          "DNS cache poisoning or DHCP failure",
+          "Patch deployment or software inventory",
+          "Printer malfunction or RAID failure"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Large sensitive downloads, personal cloud upload, resignation, and anomalous timing support either insider threat or compromised account activity."
+      },
+      {
+        "id": "2",
+        "question": "What should analysts verify FIRST?",
+        "options": [
+          "Whether the user had legitimate business justification for the access and upload",
+          "Whether the office lights were on",
+          "Whether DNSSEC is enabled globally",
+          "Whether printers have current firmware"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Before assuming malicious insider behavior, analysts should verify identity, authorization, business need, and whether the activity was legitimate."
+      },
+      {
+        "id": "3",
+        "question": "Which evidence would strengthen insider threat suspicion?",
+        "options": [
+          "Resignation, unusual access time, personal cloud upload, and no malware indicators",
+          "A DHCP renewal at noon",
+          "A printer low-toner alert",
+          "A normal password reset"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The resignation, timing, and personal cloud upload indicate suspicious user-driven behavior rather than typical automated malware activity."
+      },
+      {
+        "id": "4",
+        "question": "Which containment action is MOST appropriate?",
+        "options": [
+          "Temporarily suspend or restrict the account and block the upload destination while preserving evidence",
+          "Wipe all file servers immediately",
+          "Disable the entire corporate network",
+          "Delete DLP logs"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Restricting the account and upload path limits further exfiltration while preserving evidence for HR/legal/security review."
+      },
+      {
+        "id": "5",
+        "question": "How should severity generally be classified?",
+        "options": [
+          "High, because sensitive data may have been exfiltrated",
+          "Informational, because the VPN country was normal",
+          "Low, because no malware was found",
+          "No incident, because the employee authenticated successfully"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Potential exfiltration of sensitive engineering data to personal cloud storage is high severity even without malware indicators."
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "difficulty": "hard",
+    "category": "Ransomware / Incident Response",
+    "title": "Ransomware Containment and Recovery",
+    "sections": [
+      {
+        "title": "EDR Alerts",
+        "items": [
+          "Multiple files renamed with .locked extension",
+          "vssadmin.exe Delete Shadows /All /Quiet executed",
+          "Suspicious process spawned from user Downloads folder"
+        ]
+      },
+      {
+        "title": "Infrastructure Context",
+        "items": [
+          "File server contains shared finance documents",
+          "Backups exist but restore status is untested",
+          "Several mapped network drives are visible from infected host"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What activity is MOST likely occurring?",
+        "options": [
+          "Ransomware encryption and recovery sabotage",
+          "Normal backup cleanup",
+          "DNS tunneling only",
+          "Kerberos ticket renewal"
+        ],
+        "correctAnswer": "A",
+        "explanation": "File renaming, shadow copy deletion, and a suspicious executable are classic indicators of ransomware activity and recovery sabotage."
+      },
+      {
+        "id": "2",
+        "question": "What should be done FIRST?",
+        "options": [
+          "Isolate the infected host from the network",
+          "Restore backups immediately without validation",
+          "Email all employees the ransom note",
+          "Disable all endpoint logging"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Isolation prevents further encryption across mapped drives and network shares."
+      },
+      {
+        "id": "3",
+        "question": "Why is vssadmin.exe activity significant?",
+        "options": [
+          "It may indicate deletion of shadow copies to prevent easy recovery",
+          "It proves DNS poisoning",
+          "It creates new MFA tokens",
+          "It only changes screen brightness"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Ransomware commonly deletes volume shadow copies to make recovery harder."
+      },
+      {
+        "id": "4",
+        "question": "What should be verified before restoration?",
+        "options": [
+          "Backup integrity and that backups are not infected/encrypted",
+          "Printer paper levels",
+          "Monitor size",
+          "The user's desktop wallpaper"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Restoring from compromised or untested backups can reintroduce malware or fail during recovery."
+      },
+      {
+        "id": "5",
+        "question": "Which IR phase includes restoring clean systems from validated backups?",
+        "options": [
+          "Recovery",
+          "Preparation",
+          "Detection only",
+          "Initial access"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Recovery focuses on safely restoring business operations after containment and eradication."
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "difficulty": "hard",
+    "category": "Vulnerability Management",
+    "title": "CVSS Policy-Based Prioritization",
+    "sections": [
+      {
+        "title": "Company Policy",
+        "items": [
+          "Confidentiality impact is prioritized over availability impact",
+          "Public-facing systems are prioritized over internal systems when impact is similar",
+          "Exploitability and business criticality must be considered together"
+        ]
+      },
+      {
+        "title": "Vulnerabilities",
+        "items": [
+          "A: External portal, C:H/I:N/A:N, exploit available",
+          "B: Internal print server, C:N/I:N/A:H, exploit available",
+          "C: Internal wiki, C:L/I:L/A:N, no exploit",
+          "D: External marketing site, C:N/I:N/A:L, no exploit"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "Which vulnerability should be remediated FIRST?",
+        "options": [
+          "A: External portal with high confidentiality impact and exploit available",
+          "B: Internal print server with high availability impact",
+          "C: Internal wiki with low confidentiality and integrity impact",
+          "D: External marketing site with low availability impact"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Policy prioritizes confidentiality over availability, and the affected system is external with an available exploit."
+      },
+      {
+        "id": "2",
+        "question": "Why is the internal print server lower priority than the external portal?",
+        "options": [
+          "The policy prioritizes confidentiality and public exposure over internal availability impact",
+          "Printers can never be vulnerable",
+          "Availability impact is always ignored",
+          "Internal systems do not require patching"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The print server has high availability impact, but the external portal has high confidentiality impact and external exposure."
+      },
+      {
+        "id": "3",
+        "question": "Which factor most increases urgency for Vulnerability A?",
+        "options": [
+          "External exposure plus exploit availability",
+          "The name of the system",
+          "The presence of a printer queue",
+          "The absence of browser logs"
+        ],
+        "correctAnswer": "A",
+        "explanation": "An exploit available against an internet-facing system with high confidentiality impact creates high remediation urgency."
+      },
+      {
+        "id": "4",
+        "question": "What should be considered if immediate patching is impossible?",
+        "options": [
+          "Compensating controls such as WAF rules, access restrictions, or segmentation",
+          "Deleting vulnerability scan reports",
+          "Ignoring the vulnerability permanently",
+          "Disabling all logs"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Compensating controls reduce risk when the primary mitigation, such as patching, cannot be applied immediately."
+      },
+      {
+        "id": "5",
+        "question": "What is the best analyst response to conflicting vulnerability priorities?",
+        "options": [
+          "Apply organizational policy and business context to prioritize remediation",
+          "Patch alphabetically by hostname",
+          "Only patch internal systems",
+          "Only patch vulnerabilities with short names"
+        ],
+        "correctAnswer": "A",
+        "explanation": "CySA+ vulnerability prioritization requires using policy, exposure, exploitability, and business impact rather than raw severity alone."
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "difficulty": "medium",
+    "category": "SOC Operations",
+    "title": "Alert Fatigue and SOAR Automation",
+    "sections": [
+      {
+        "title": "SOC Metrics",
+        "items": [
+          "22,000 alerts per day",
+          "Analysts manually close most phishing alerts",
+          "Mean time to respond increased 40%",
+          "Several true positives missed during last month"
+        ]
+      },
+      {
+        "title": "Recent Incident",
+        "items": [
+          "Malware beaconed for 9 days before detection",
+          "SIEM generated alerts but analysts ignored them as duplicates",
+          "Analysts report severe burnout"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What operational failure MOST likely occurred?",
+        "options": [
+          "Alert fatigue caused analysts to miss true positives",
+          "DNSSEC expired",
+          "RAID mirroring failed",
+          "DHCP assigned duplicate IPs only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "High alert volume, manual closure, missed positives, and burnout indicate alert fatigue and ineffective alert triage."
+      },
+      {
+        "id": "2",
+        "question": "Which improvement would MOST reduce repetitive manual work?",
+        "options": [
+          "SOAR playbooks for duplicate alert handling and enrichment",
+          "Disabling phishing detection",
+          "Reducing log retention to one hour",
+          "Removing all SIEM correlation rules"
+        ],
+        "correctAnswer": "A",
+        "explanation": "SOAR can automate enrichment, deduplication, ticketing, and standardized response steps for repeated alerts."
+      },
+      {
+        "id": "3",
+        "question": "Which SIEM change would improve detection quality?",
+        "options": [
+          "Correlation tuning, baselining, deduplication, and severity adjustment",
+          "Alert on every single event equally",
+          "Disable all low-severity logs",
+          "Ignore alerts from executives"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Tuning and baselining reduce noise while preserving meaningful correlations that indicate real attacks."
+      },
+      {
+        "id": "4",
+        "question": "Which metrics should leadership monitor?",
+        "options": [
+          "MTTD, MTTR, false positive rate, alert volume, and missed true positives",
+          "Only number of monitors per analyst",
+          "Keyboard model inventory",
+          "Building temperature"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Operational SOC metrics show whether detection and response quality is improving or degrading."
+      },
+      {
+        "id": "5",
+        "question": "What risk does alert fatigue create?",
+        "options": [
+          "True compromises may be ignored or closed as duplicates",
+          "All vulnerabilities disappear",
+          "Backups automatically become invalid",
+          "DNS stops resolving internal names"
+        ],
+        "correctAnswer": "A",
+        "explanation": "When analysts are overloaded, they may miss or dismiss important alerts, increasing attacker dwell time."
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "difficulty": "hard",
+    "category": "Linux Security",
+    "title": "Linux Privilege Escalation and Persistence",
+    "sections": [
+      {
+        "title": "Linux Logs",
+        "items": [
+          "Accepted password for devops from 10.0.5.22",
+          "sudo: devops : COMMAND=/bin/bash",
+          "chmod +s /bin/bash"
+        ]
+      },
+      {
+        "title": "Additional Findings",
+        "items": [
+          "New outbound SSH connections",
+          "Cron job added under /etc/cron.d/backup-sync",
+          "Large archive created in /tmp/reports.tar.gz"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What attack activity is MOST likely occurring?",
+        "options": [
+          "Compromised account followed by privilege escalation, persistence, and possible exfiltration",
+          "Normal DNS cache update",
+          "Printer troubleshooting",
+          "Patch verification only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Successful login, sudo shell, SUID modification, cron job, outbound SSH, and archive creation show a compromise chain beyond normal administration."
+      },
+      {
+        "id": "2",
+        "question": "Why is chmod +s /bin/bash concerning?",
+        "options": [
+          "It can create an SUID root shell privilege escalation path",
+          "It renews DHCP leases",
+          "It deletes DNS records",
+          "It disables SSH forever"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Setting the SUID bit on bash can allow users to execute a shell with elevated privileges, depending on system behavior and permissions."
+      },
+      {
+        "id": "3",
+        "question": "Which evidence suggests persistence?",
+        "options": [
+          "Cron job under /etc/cron.d/ and SUID bash modification",
+          "One normal DNS request",
+          "A browser bookmark",
+          "The hostname length"
+        ],
+        "correctAnswer": "A",
+        "explanation": "A cron job can re-execute attacker code, and SUID bash can provide a repeated privilege escalation mechanism."
+      },
+      {
+        "id": "4",
+        "question": "Which evidence suggests possible exfiltration?",
+        "options": [
+          "Large archive in /tmp and new outbound SSH connections",
+          "A login banner update",
+          "A local timezone setting",
+          "A normal package list command"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Attackers commonly archive data before transferring it out; outbound SSH connections provide a possible transfer channel."
+      },
+      {
+        "id": "5",
+        "question": "What should be contained FIRST?",
+        "options": [
+          "The affected Linux host and the devops account/session",
+          "All office printers",
+          "The public website's CSS only",
+          "The SIEM dashboard theme"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Isolating the host and disabling/revoking the compromised account/session limits continued access, privilege escalation, and exfiltration."
       }
     ]
   }

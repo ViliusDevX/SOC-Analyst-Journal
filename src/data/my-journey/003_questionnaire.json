@@ -1,7 +1,7 @@
 {
   "id": "003",
   "title": "Advanced CySA+ Practice Set",
-  "date": "2026-05-20",
+  "date": "2026-05-21",
   "status": "Raw Answers",
   "summary": "20 advanced CySA+ practice questions and 5 SOC scenarios focused on Linux execution, cloud identity, business email compromise, web application compromise, persistence, forensic handling, and SOC operations.",
   "questions": [

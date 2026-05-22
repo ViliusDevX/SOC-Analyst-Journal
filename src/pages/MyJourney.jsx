@@ -90,6 +90,10 @@ function MyJourney() {
               Entry #{entry.id}
             </p>
 
+            <p className="text-sm text-zinc-500 mb-4">
+              {entry.date}
+            </p>
+
             <h2 className="text-2xl font-semibold mb-2">
               {entry.title}
             </h2>

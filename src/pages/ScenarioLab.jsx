@@ -149,7 +149,7 @@ function ScenarioLab() {
                     key={option}
                     onClick={() => setSelectedAnswer(letter)}
                     disabled={showResult}
-                    className={`w-full text-left text-sm border rounded-lg px-4 py-3 transition ${
+                    className={`w-full text-left text-sm border cursor-pointer rounded-lg px-4 py-3 transition ${
                       isCorrectOption
                         ? "border-green-500 bg-green-950/30 text-green-300"
                         : isWrongSelected
@@ -186,14 +186,14 @@ function ScenarioLab() {
                 <button
                   onClick={handleCheckAnswer}
                   disabled={!selectedAnswer}
-                  className="bg-emerald-400 text-black px-5 py-3 rounded-xl font-semibold hover:bg-emerald-300 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                  className="bg-emerald-400 text-black px-5 py-3 rounded-xl font-semibold hover:bg-emerald-300 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
                 >
                   Check Answer
                 </button>
               ) : (
                 <button
                   onClick={handleNextQuestion}
-                  className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
+                  className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition cursor-pointer"
                 >
                   {isLastQuestion ? "Next Scenario" : "Next Question"}
                 </button>
