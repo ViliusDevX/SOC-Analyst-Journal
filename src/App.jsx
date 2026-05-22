@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import MyJourney from "./pages/MyJourney";
 import AboutMe from "./pages/AboutMe";
+import ScenarioLab from "./pages/ScenarioLab";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/journey" element={<MyJourney />} />
             <Route path="/about" element={<AboutMe />} />
+            <Route path="/scenario-lab" element={<ScenarioLab />} />
           </Routes>
         </main>
       </div>

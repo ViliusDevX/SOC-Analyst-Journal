@@ -1,0 +1,174 @@
+[
+  {
+    "id": "1",
+    "difficulty": "medium",
+    "category": "Cloud / Identity",
+    "title": "Microsoft 365 OAuth Token Abuse",
+    "sections": [
+      {
+        "title": "Microsoft 365 Alerts",
+        "items": [
+          "Multiple successful logins from different countries within 15 minutes",
+          "OAuth application consent granted to:",
+          "\"Mail-Backup-Sync\""
+        ]
+      },
+      {
+        "title": "Additional Findings",
+        "items": [
+          "User recently clicked phishing link",
+          "MFA was enabled",
+          "OAuth token remains active after password reset"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What MOST likely occurred?",
+        "options": [
+          "Password spraying only",
+          "OAuth token/session abuse after phishing",
+          "DNS tunneling through TXT records",
+          "Patch failure on the mail server"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Multiple impossible-travel logins, OAuth consent, MFA being enabled, and token persistence after password reset strongly suggest OAuth token/session abuse after phishing."
+      },
+      {
+        "id": "2",
+        "question": "Why did password reset not fully solve the issue?",
+        "options": [
+          "Password resets do not affect firewall rules",
+          "OAuth tokens/app consent can remain valid after password changes",
+          "DNS cache entries preserve account access",
+          "Mailbox forwarding rules automatically reset passwords"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Password reset alone may not revoke already-granted OAuth permissions or active tokens, so attacker access can persist."
+      },
+      {
+        "id": "3",
+        "question": "What should be revoked FIRST?",
+        "options": [
+          "The user's monitor access",
+          "The OAuth application consent/token",
+          "All DNS records",
+          "The firewall rulebase"
+        ],
+        "correctAnswer": "B",
+        "explanation": "The malicious OAuth consent/token is the active access path and should be revoked directly."
+      },
+      {
+        "id": "4",
+        "question": "What logs would help investigation most?",
+        "options": [
+          "OAuth consent logs, sign-in logs, mailbox audit logs, and forwarding-rule logs",
+          "Printer spooler logs only",
+          "DHCP lease duration only",
+          "Local browser bookmarks only"
+        ],
+        "correctAnswer": "A",
+        "explanation": "OAuth consent, sign-in, mailbox audit, and forwarding-rule logs can show how access was granted, where it was used from, and what mailbox activity occurred."
+      },
+      {
+        "id": "5",
+        "question": "What controls could reduce similar attacks?",
+        "options": [
+          "Disable all cloud services",
+          "Admin consent workflow, OAuth app restrictions, phishing training, and UEBA/impossible-travel detection",
+          "Increase screen-lock timeout",
+          "Turn off audit logging"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Restricting OAuth consent, requiring admin approval, training users, and detecting anomalous sign-ins reduce the chance and impact of OAuth phishing."
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "difficulty": "medium",
+    "category": "Malware Analysis",
+    "title": "Memory-Resident Malware",
+    "sections": [
+      {
+        "title": "EDR Alerts",
+        "items": [
+          "powershell.exe executed with encoded commands",
+          "No malicious files found on disk",
+          "Suspicious outbound HTTPS traffic observed",
+          "Malware disappears after reboot"
+        ]
+      },
+      {
+        "title": "Additional Findings",
+        "items": [
+          "RAM usage unusually high",
+          "Antivirus detects nothing"
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "question": "What type of malware behavior is MOST likely occurring?",
+        "options": [
+          "Memory-resident or fileless malware",
+          "DNS cache poisoning",
+          "Normal patch installation",
+          "Printer spooler crash"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Encoded PowerShell, suspicious outbound traffic, no malicious files on disk, and disappearance after reboot indicate memory-resident or fileless malware behavior."
+      },
+      {
+        "id": "2",
+        "question": "Why might antivirus fail to detect it?",
+        "options": [
+          "Antivirus cannot detect any PowerShell activity",
+          "The malware may avoid disk-based signatures by running mainly in memory",
+          "RAM usage always disables antivirus",
+          "HTTPS traffic prevents all endpoint monitoring"
+        ],
+        "correctAnswer": "B",
+        "explanation": "Fileless or memory-resident malware may evade traditional disk-based signature detection because there may be little or no malicious file to scan."
+      },
+      {
+        "id": "3",
+        "question": "What forensic evidence should be collected FIRST?",
+        "options": [
+          "Volatile memory/RAM image",
+          "Printer configuration",
+          "Monitor resolution",
+          "DHCP reservation list"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Because the malware disappears after reboot and appears memory-resident, volatile memory should be collected before power loss or reboot."
+      },
+      {
+        "id": "4",
+        "question": "What containment action is MOST appropriate?",
+        "options": [
+          "Isolate the affected host from the network while preserving evidence",
+          "Immediately reboot the system",
+          "Delete DNS logs",
+          "Ignore because no file was found"
+        ],
+        "correctAnswer": "A",
+        "explanation": "Isolation limits C2/exfiltration while preserving the system state for investigation."
+      },
+      {
+        "id": "5",
+        "question": "What indicators strongly suggest memory-resident malware?",
+        "options": [
+          "High RAM usage, no disk artifacts, encoded PowerShell, suspicious outbound traffic, and disappearance after reboot",
+          "Printer errors and DHCP renewals",
+          "Normal browser history",
+          "Only a failed login event"
+        ],
+        "correctAnswer": "A",
+        "explanation": "The combination of volatile behavior, lack of disk artifacts, encoded PowerShell, and outbound traffic strongly supports memory-resident malware."
+      }
+    ]
+  }
+]

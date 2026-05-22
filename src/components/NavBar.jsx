@@ -12,11 +12,12 @@ function Navbar() {
         <NavLink to="/" className="font-bold text-white">
           SOC Journal
         </NavLink>
-
+        
         <div className="flex gap-6 text-sm">
           <NavLink to="/" className={linkClass}>Home</NavLink>
           <NavLink to="/journey" className={linkClass}>My Journey</NavLink>
           <NavLink to="/about" className={linkClass}>About Me</NavLink>
+          <NavLink to="/scenario-lab" className={linkClass}>Scenario Lab</NavLink>
         </div>
       </div>
     </nav>
