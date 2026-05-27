@@ -3,12 +3,14 @@ import { journeyEntries } from "../data/my-journey";
 
 function Home() {
   const totalQuestions = journeyEntries.reduce(
-    (total, entry) => total + entry.questions.length,
+    (total, entry) =>
+      total + (Array.isArray(entry.questions) ? entry.questions.length : 0),
     0
   );
 
   const totalScenarios = journeyEntries.reduce(
-    (total, entry) => total + entry.scenarios.length,
+    (total, entry) =>
+      total + (Array.isArray(entry.scenarios) ? entry.scenarios.length : 0),
     0
   );
 
