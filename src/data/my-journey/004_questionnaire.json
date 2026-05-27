@@ -17,7 +17,7 @@
         "The packet represents an established SSH session"
       ],
       "myAnswer": "A, because of \"INPUT DROP\" that means failed, but i don't see any evidence for DNS filtering blocking packet",
-      "review": "correct"
+      "review": "partial"
     },
     {
       "id": 2,
@@ -185,7 +185,7 @@
         "Service startup only"
       ],
       "myAnswer": "Not sure, guessing B?",
-      "review": "correct"
+      "review": "partial"
     },
     {
       "id": 14,
@@ -199,7 +199,7 @@
         "Anonymous null session"
       ],
       "myAnswer": "Not sure, guessing B",
-      "review": "correct"
+      "review": "partial"
     },
     {
       "id": 15,
@@ -381,7 +381,7 @@
         "JA3 hashes are only used for DHCP"
       ],
       "myAnswer": "I think A, but lets mark it as partly correct because im not good at TLS logs yet",
-      "review": "correct"
+      "review": "partial"
     },
     {
       "id": 28,
