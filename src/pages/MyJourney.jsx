@@ -42,13 +42,13 @@ function MyJourney() {
           </h2>
 
           <div className="grid gap-5 md:grid-cols-2">
-            {selectedEntry.questions.map((question) => (
+            {selectedEntry.questions?.map((question) => (
               <QuestionsCard
                 key={question.id}
                 question={question}
                 showReview={showReviews}
               />
-            ))}
+            ))|| "No Questions"}
           </div>
         </section>
 
@@ -58,13 +58,13 @@ function MyJourney() {
           </h2>
 
           <div className="grid gap-6">
-            {selectedEntry.scenarios.map((scenario) => (
+            {selectedEntry.scenarios?.map((scenario) => (
               <ScenarioCard
                 key={scenario.id}
                 scenario={scenario}
                 showReview={showReviews}
               />
-            ))}
+            ))|| "No Scenarios"}
           </div>
         </section>
       </section>
@@ -108,11 +108,11 @@ function MyJourney() {
               </span>
 
               <span className="text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">
-                {entry.questions.length} Questions
+                {entry.questions?.length || 0} Questions
               </span>
 
               <span className="text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">
-                {entry.scenarios.length} Scenarios
+                {entry.scenarios ? entry.scenarios.length : 0} Scenarios
               </span>
             </div>
           </button>

