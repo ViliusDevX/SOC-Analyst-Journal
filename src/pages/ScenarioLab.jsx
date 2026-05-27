@@ -300,7 +300,7 @@ function ScenarioLab() {
                 setDifficultyFilter("All");
                 setCategoryFilter("All");
               }}
-              className="w-full border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-300 hover:border-emerald-500 hover:text-emerald-400 transition"
+              className="w-full border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-300 hover:border-emerald-500 hover:text-emerald-400 transition cursor-pointer"
             >
               Reset Filters
             </button>
