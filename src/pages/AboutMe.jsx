@@ -85,6 +85,8 @@ function AboutMe() {
             <li>• Alert triage and incident response</li>
             <li>• Log review and SIEM thinking</li>
             <li>• React, Tailwind, and structured frontend projects</li>
+            <li>• Free interactive SOC scenario practice</li>
+            <li>• “Check Answers” review system</li>
           </ul>
         </div>
 
@@ -94,8 +96,6 @@ function AboutMe() {
           </h3>
 
           <ul className="space-y-3 text-zinc-400">
-            <li>• Free interactive SOC scenario practice</li>
-            <li>• “Check Answers” review system</li>
             <li>• MITRE ATT&CK mapping for scenarios</li>
             <li>• Better analyst notes and learning reflections</li>
             <li>• More realistic incident investigation flows</li>
