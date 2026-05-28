@@ -44,6 +44,12 @@ function Home() {
           >
             About Me
           </Link>
+          <Link
+            to="/scenario-lab"
+            className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
+          >
+            Free Practice Lab
+          </Link>
         </div>
       </div>
 
