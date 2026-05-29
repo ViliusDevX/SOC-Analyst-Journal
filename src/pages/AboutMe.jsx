@@ -11,7 +11,7 @@ function AboutMe() {
         </h1>
 
         <p className="text-zinc-400 max-w-4xl leading-relaxed">
-          I am a 17-year-old cybersecurity enthusiast focused on SOC skills,
+          I am a cybersecurity student focused on SOC skills,
           CySA+ preparation, frontend development, and building practical
           projects. I have achieved Security+, built security scripts and
           personal tools, worked with CTF-style labs, and I am currently

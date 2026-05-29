@@ -27,7 +27,7 @@ function Home() {
 
         <p className="text-zinc-400 max-w-3xl text-lg mb-8">
           A learning project documenting my CySA+ preparation, SOC scenarios,
-          raw analyst answers, and frontend development journey.
+           practice answers, and frontend development journey.
         </p>
 
         <div className="flex flex-wrap gap-4">
