@@ -18,6 +18,7 @@ The project combines:
 
 - 90 CySA+ / SOC practice questions
 - 15 investigation scenarios
+- 10 Practice lab scenarios
 - Structured JSON-based questionnaire system
 - Scenario review/checking system
 - Interactive Scenario Lab
