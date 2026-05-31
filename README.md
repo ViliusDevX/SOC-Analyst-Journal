@@ -1,6 +1,6 @@
 # SOC Analyst Journal
 
-Live Demo: https://soc-journal-kappa.vercel.app/
+Check it out: https://soc-journal-kappa.vercel.app/
 
 SOC Analyst Journal is a long term cybersecurity learning project focused on SOC analysis, CySA+ preparation and incident investigation.
 
