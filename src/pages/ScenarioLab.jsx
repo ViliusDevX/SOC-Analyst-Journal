@@ -347,10 +347,6 @@ function ScenarioLab() {
                   <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
                     {scenario.questions.length} Questions
                   </span>
-
-                  <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
-                    ~10 min
-                  </span>
                 </div>
 
                 <button
