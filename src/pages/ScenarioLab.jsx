@@ -204,7 +204,7 @@ function ScenarioLab() {
                 ) : isLastQuestion ? (
                   <button
                     onClick={backToDashboard}
-                    className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
+                    className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition cursor-pointer"
                   >
                     Finish Scenario
                   </button>
