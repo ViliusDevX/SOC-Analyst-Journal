@@ -32,23 +32,23 @@ function Home() {
 
         <div className="flex flex-wrap gap-4">
           <Link
-            to="/journey"
+            to="/scenario-lab"
             className="bg-emerald-400 text-black px-5 py-3 rounded-xl font-semibold hover:bg-emerald-300 transition"
+          >
+            Free Practice Lab
+          </Link>
+
+          <Link
+            to="/journey"
+            className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
           >
             My Journey
           </Link>
-
           <Link
             to="/about"
             className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
           >
             About Me
-          </Link>
-          <Link
-            to="/scenario-lab"
-            className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition"
-          >
-            Free Practice Lab
           </Link>
         </div>
       </div>
