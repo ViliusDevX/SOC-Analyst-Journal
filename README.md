@@ -21,10 +21,10 @@ The project combines:
 - 30 Practice lab scenarios
 - Structured JSON-based questionnaire system
 - Scenario review/checking system
-- Interactive Scenario Lab
-- React + Tailwind frontend
+- Interactive Scenario Lab dashboard
 - Learning progression tracking
-
+- *more coming soon...*
+  
 ---
 
 ## Purpose
