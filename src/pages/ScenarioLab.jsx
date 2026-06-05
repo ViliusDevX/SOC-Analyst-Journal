@@ -15,6 +15,10 @@ function ScenarioLab() {
   const difficulties = ["All", ...new Set(scenarios.map((s) => s.difficulty))];
   const categories = ["All", ...new Set(scenarios.map((s) => s.category))];
 
+  const progress = JSON.parse(
+  localStorage.getItem("scenarioProgress") || "{}"
+);
+
   const filteredScenarios = scenarios.filter((scenario) => {
     const matchesSearch =
       scenario.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -203,7 +207,33 @@ function ScenarioLab() {
                   </button>
                 ) : isLastQuestion ? (
                   <button
-                    onClick={backToDashboard}
+                    onClick={() => {
+                      const existingProgress = JSON.parse(
+                        localStorage.getItem("scenarioProgress") || "{}"
+                      );
+
+                      const scenarioId = selectedScenario.id;
+
+                      existingProgress[scenarioId] = {
+                        attempts: (existingProgress[scenarioId]?.attempts || 0) + 1,
+
+                        bestScore: Math.max(
+                          score,
+                          existingProgress[scenarioId]?.bestScore || 0
+                        ),
+
+                        lastScore: score,
+
+                        completed: true,
+                      };
+
+                      localStorage.setItem(
+                        "scenarioProgress",
+                        JSON.stringify(existingProgress)
+                      );
+
+                      backToDashboard();
+                    }}
                     className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition cursor-pointer"
                   >
                     Finish Scenario
@@ -310,6 +340,42 @@ function ScenarioLab() {
         <main>
           <div className="flex flex-wrap items-center justify-between gap-4 mb-5">
             <div>
+              <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+                  <p className="text-sm text-zinc-500">
+                    Completed
+                  </p>
+
+                  <p className="text-2xl font-bold text-emerald-400">
+                    {Object.keys(progress).length}
+                  </p>
+                </div>
+
+                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+                  <p className="text-sm text-zinc-500">
+                    Total Scenarios
+                  </p>
+
+                  <p className="text-2xl font-bold">
+                    {scenarios.length}
+                  </p>
+                </div>
+
+                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+                  <p className="text-sm text-zinc-500">
+                    Completion
+                  </p>
+
+                  <p className="text-2xl font-bold text-emerald-400">
+                    {Math.round(
+                      (Object.keys(progress).length /
+                        scenarios.length) *
+                        100
+                    ) || 0}
+                    %
+                  </p>
+                </div>
+              </div>
               <h2 className="text-2xl font-semibold">Available Scenarios</h2>
 
               <p className="text-sm text-zinc-500 mt-1">
@@ -328,7 +394,11 @@ function ScenarioLab() {
                   <span className="text-sm text-emerald-400">
                     {scenario.category}
                   </span>
-
+                  {progress[scenario.id] && (
+                      <span className="text-xs bg-green-950 text-green-300 border border-green-800 px-3 py-1 rounded-full">
+                        Completed
+                      </span>
+                    )}
                   <span className="text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">
                     {scenario.difficulty}
                   </span>
