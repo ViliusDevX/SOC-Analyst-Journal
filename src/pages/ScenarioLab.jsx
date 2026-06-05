@@ -12,17 +12,42 @@ function ScenarioLab() {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
 
+  const [progress, setProgress] = useState(() => {
+    return JSON.parse(localStorage.getItem("scenarioProgress") || "{}");
+  });
+
   const difficulties = ["All", ...new Set(scenarios.map((s) => s.difficulty))];
   const categories = ["All", ...new Set(scenarios.map((s) => s.category))];
 
-  const progress = JSON.parse(
-  localStorage.getItem("scenarioProgress") || "{}"
-);
+  const completedScenarioIds = Object.keys(progress).filter(
+    (scenarioId) => progress[scenarioId]?.completed
+  );
+
+  const totalCorrectAnswers = completedScenarioIds.reduce((total, scenarioId) => {
+    return total + (progress[scenarioId]?.bestScore || 0);
+  }, 0);
+
+  const totalAnsweredQuestions = completedScenarioIds.reduce((total, scenarioId) => {
+    const scenario = scenarios.find((item) => item.id === scenarioId);
+
+    return (
+      total +
+      (progress[scenarioId]?.totalQuestions || scenario?.questions.length || 0)
+    );
+  }, 0);
+
+  const overallAccuracy =
+    totalAnsweredQuestions > 0
+      ? Math.round((totalCorrectAnswers / totalAnsweredQuestions) * 100)
+      : 0;
 
   const filteredScenarios = scenarios.filter((scenario) => {
+    const searchValue = searchTerm.toLowerCase();
+
     const matchesSearch =
-      scenario.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      scenario.category.toLowerCase().includes(searchTerm.toLowerCase());
+      scenario.title.toLowerCase().includes(searchValue) ||
+      scenario.category.toLowerCase().includes(searchValue) ||
+      scenario.difficulty.toLowerCase().includes(searchValue);
 
     const matchesDifficulty =
       difficultyFilter === "All" || scenario.difficulty === difficultyFilter;
@@ -49,6 +74,36 @@ function ScenarioLab() {
     setScore(0);
   };
 
+  const resetProgress = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to reset all Scenario Lab progress? This cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    localStorage.removeItem("scenarioProgress");
+    setProgress({});
+  };
+
+  const saveScenarioProgress = () => {
+    const scenarioId = selectedScenario.id;
+
+    const updatedProgress = {
+      ...progress,
+      [scenarioId]: {
+        attempts: (progress[scenarioId]?.attempts || 0) + 1,
+        bestScore: Math.max(score, progress[scenarioId]?.bestScore || 0),
+        lastScore: score,
+        totalQuestions: selectedScenario.questions.length,
+        completed: true,
+      },
+    };
+
+    localStorage.setItem("scenarioProgress", JSON.stringify(updatedProgress));
+    setProgress(updatedProgress);
+    backToDashboard();
+  };
+
   const getOptionLetter = (index) => String.fromCharCode(65 + index);
 
   if (selectedScenario) {
@@ -61,7 +116,7 @@ function ScenarioLab() {
       if (!selectedAnswer) return;
 
       if (isCorrect) {
-        setScore(score + 1);
+        setScore((currentScore) => currentScore + 1);
       }
 
       setShowResult(true);
@@ -72,7 +127,7 @@ function ScenarioLab() {
       setShowResult(false);
 
       if (!isLastQuestion) {
-        setQuestionIndex(questionIndex + 1);
+        setQuestionIndex((currentIndex) => currentIndex + 1);
       }
     };
 
@@ -150,7 +205,7 @@ function ScenarioLab() {
                 {question.question}
               </h2>
 
-              <div className="space-y-3 ">
+              <div className="space-y-3">
                 {question.options.map((option, index) => {
                   const letter = getOptionLetter(index);
                   const isSelected = selectedAnswer === letter;
@@ -207,33 +262,7 @@ function ScenarioLab() {
                   </button>
                 ) : isLastQuestion ? (
                   <button
-                    onClick={() => {
-                      const existingProgress = JSON.parse(
-                        localStorage.getItem("scenarioProgress") || "{}"
-                      );
-
-                      const scenarioId = selectedScenario.id;
-
-                      existingProgress[scenarioId] = {
-                        attempts: (existingProgress[scenarioId]?.attempts || 0) + 1,
-
-                        bestScore: Math.max(
-                          score,
-                          existingProgress[scenarioId]?.bestScore || 0
-                        ),
-
-                        lastScore: score,
-
-                        completed: true,
-                      };
-
-                      localStorage.setItem(
-                        "scenarioProgress",
-                        JSON.stringify(existingProgress)
-                      );
-
-                      backToDashboard();
-                    }}
+                    onClick={saveScenarioProgress}
                     className="border border-zinc-700 px-5 py-3 rounded-xl font-semibold hover:border-emerald-400 hover:text-emerald-400 transition cursor-pointer"
                   >
                     Finish Scenario
@@ -257,7 +286,9 @@ function ScenarioLab() {
   return (
     <section className="space-y-8">
       <div>
-        <p className="text-sm text-emerald-400 mb-2">Free SOC Practice</p>
+        <p className="text-sm text-emerald-400 mb-2">
+          Free SOC Practice
+        </p>
 
         <h1 className="text-4xl md:text-5xl font-bold mb-3">
           Scenario Lab
@@ -271,7 +302,9 @@ function ScenarioLab() {
 
       <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
         <aside className="border border-zinc-800 bg-zinc-950 rounded-2xl p-5 h-fit">
-          <h2 className="text-xl font-semibold mb-5">Filters</h2>
+          <h2 className="text-xl font-semibold mb-5">
+            Filters
+          </h2>
 
           <div className="space-y-5">
             <div>
@@ -338,95 +371,139 @@ function ScenarioLab() {
         </aside>
 
         <main>
+          <div className="grid md:grid-cols-4 gap-4 mb-6">
+            <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+              <p className="text-sm text-zinc-500">
+                Completed
+              </p>
+
+              <p className="text-2xl font-bold text-emerald-400">
+                {completedScenarioIds.length}
+              </p>
+            </div>
+
+            <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+              <p className="text-sm text-zinc-500">
+                Total Scenarios
+              </p>
+
+              <p className="text-2xl font-bold">
+                {scenarios.length}
+              </p>
+            </div>
+
+            <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+              <p className="text-sm text-zinc-500">
+                Completion
+              </p>
+
+              <p className="text-2xl font-bold text-emerald-400">
+                {Math.round(
+                  (completedScenarioIds.length / scenarios.length) * 100
+                ) || 0}
+                %
+              </p>
+            </div>
+
+            <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+              <p className="text-sm text-zinc-500">
+                Correct Answers
+              </p>
+
+              <p className="text-2xl font-bold text-emerald-400">
+                {totalCorrectAnswers} / {totalAnsweredQuestions}
+              </p>
+
+              <p className="text-xs text-zinc-500 mt-1">
+                {overallAccuracy}% accuracy
+              </p>
+            </div>
+          </div>
+
           <div className="flex flex-wrap items-center justify-between gap-4 mb-5">
             <div>
-              <div className="grid md:grid-cols-3 gap-4 mb-6">
-                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-500">
-                    Completed
-                  </p>
-
-                  <p className="text-2xl font-bold text-emerald-400">
-                    {Object.keys(progress).length}
-                  </p>
-                </div>
-
-                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-500">
-                    Total Scenarios
-                  </p>
-
-                  <p className="text-2xl font-bold">
-                    {scenarios.length}
-                  </p>
-                </div>
-
-                <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-500">
-                    Completion
-                  </p>
-
-                  <p className="text-2xl font-bold text-emerald-400">
-                    {Math.round(
-                      (Object.keys(progress).length /
-                        scenarios.length) *
-                        100
-                    ) || 0}
-                    %
-                  </p>
-                </div>
-              </div>
-              <h2 className="text-2xl font-semibold">Available Scenarios</h2>
+              <h2 className="text-2xl font-semibold">
+                Available Scenarios
+              </h2>
 
               <p className="text-sm text-zinc-500 mt-1">
                 Showing {filteredScenarios.length} of {scenarios.length}
               </p>
             </div>
+
+            <button
+              onClick={resetProgress}
+              className="border border-red-900 text-red-300 px-4 py-3 rounded-xl text-sm hover:bg-red-950/30 transition cursor-pointer"
+            >
+              Reset Progress
+            </button>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2">
-            {filteredScenarios.map((scenario) => (
-              <article
-                key={scenario.id}
-                className="border border-zinc-800 bg-zinc-950 rounded-2xl p-6 hover:border-emerald-500 transition"
-              >
-                <div className="flex flex-wrap justify-between gap-3 mb-4">
-                  <span className="text-sm text-emerald-400">
-                    {scenario.category}
-                  </span>
-                  {progress[scenario.id] && (
-                      <span className="text-xs bg-green-950 text-green-300 border border-green-800 px-3 py-1 rounded-full">
-                        Completed
+            {filteredScenarios.map((scenario) => {
+              const scenarioProgress = progress[scenario.id];
+
+              return (
+                <article
+                  key={scenario.id}
+                  className="border border-zinc-800 bg-zinc-950 rounded-2xl p-6 hover:border-emerald-500 transition"
+                >
+                  <div className="flex flex-wrap justify-between gap-3 mb-4">
+                    <span className="text-sm text-emerald-400">
+                      {scenario.category}
+                    </span>
+
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">
+                        {scenario.difficulty}
+                      </span>
+
+                      {scenarioProgress?.completed && (
+                        <span className="text-xs bg-green-950 text-green-300 border border-green-800 px-3 py-1 rounded-full">
+                          Completed
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-3">
+                    {scenario.title}
+                  </h3>
+
+                  <p className="text-zinc-400 text-sm leading-relaxed mb-5">
+                    {scenario.summary ||
+                      "Practice analyzing SOC evidence and choosing the best investigation steps."}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
+                      {scenario.questions.length} Questions
+                    </span>
+
+                    {scenarioProgress?.completed && (
+                      <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
+                        Best: {scenarioProgress.bestScore}/
+                        {scenarioProgress.totalQuestions ||
+                          scenario.questions.length}
                       </span>
                     )}
-                  <span className="text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">
-                    {scenario.difficulty}
-                  </span>
-                </div>
 
-                <h3 className="text-xl font-semibold mb-3">
-                  {scenario.title}
-                </h3>
+                    {scenarioProgress?.attempts && (
+                      <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
+                        Attempts: {scenarioProgress.attempts}
+                      </span>
+                    )}
+                  </div>
 
-                <p className="text-zinc-400 text-sm leading-relaxed mb-5">
-                  {scenario.summary ||
-                    "Practice analyzing SOC evidence and choosing the best investigation steps."}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-5">
-                  <span className="text-xs bg-black border border-zinc-800 px-3 py-1 rounded-full text-zinc-400">
-                    {scenario.questions.length} Questions
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => startScenario(scenario)}
-                  className="w-full bg-emerald-400 text-black px-4 py-3 rounded-xl font-semibold hover:bg-emerald-300 transition cursor-pointer"
-                >
-                  Start Investigation
-                </button>
-              </article>
-            ))}
+                  <button
+                    onClick={() => startScenario(scenario)}
+                    className="w-full bg-emerald-400 text-black px-4 py-3 rounded-xl font-semibold hover:bg-emerald-300 transition cursor-pointer"
+                  >
+                    Start Investigation
+                  </button>
+                </article>
+              );
+            })}
           </div>
         </main>
       </div>
