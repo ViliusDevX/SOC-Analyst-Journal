@@ -18,7 +18,7 @@ function ScenarioCard({ scenario, showReview }) {
 
     return "border-zinc-800 bg-zinc-950";
   };
-
+  
   const getReviewLabelClass = (review) => {
     if (review === "correct") {
       return "text-green-400";
