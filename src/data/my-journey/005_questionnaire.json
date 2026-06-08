@@ -1,0 +1,289 @@
+{
+  "id": "005",
+  "title": "Broad CySA+ Practice Set",
+  "date": "2026-06-08",
+  "status": "Raw Answers",
+  "summary": "20 broader CySA+ practice questions across vulnerability management, identity, memory forensics, threat intelligence, credential attacks, PowerShell, SOAR, web attacks, cloud security, incident response, SIEM tuning, ransomware recovery, Kerberos, false positive analysis, C2, OAuth, legal evidence handling, and post-incident activity.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Vulnerability Management",
+      "status": "Raw Answer",
+      "question": "A vulnerability scan reports a critical vulnerability on an internet-facing API server. The vulnerability has a public exploit, but the affected endpoint requires authentication and is protected by a WAF.\n\nWhat should the analyst do FIRST?",
+      "options": [
+        "Ignore the finding because a WAF is present",
+        "Validate exploitability and prioritize based on exposure, exploit availability, and business impact",
+        "Shut down all internet-facing systems",
+        "Mark the vulnerability as a false positive automatically"
+      ],
+      "myAnswer": "B, because first thing that is needed to be done is evaluation and risk calculation, it might be not easy to exploit but it's still critical vuln",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "Cloud / Identity",
+      "status": "Raw Answer",
+      "question": "A SOC analyst receives an alert showing a user logged in from Lithuania and then from Singapore eight minutes later. MFA was completed for both logins.\n\nWhich of the following is the MOST likely concern?",
+      "options": [
+        "Impossible travel or session/token compromise",
+        "DNS tunneling",
+        "Normal Kerberos renewal",
+        "DHCP starvation"
+      ],
+      "myAnswer": "A, because locations are too far away from each other and MFA was completed for both logins, meaning possible token compromise",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "Memory Forensics",
+      "status": "Raw Answer",
+      "question": "An incident responder is preparing to collect evidence from a compromised workstation that is still powered on and communicating externally.\n\nWhich evidence should generally be collected FIRST if memory-resident malware is suspected?",
+      "options": [
+        "Disk image only",
+        "Volatile memory",
+        "Printer logs",
+        "User's browser bookmarks"
+      ],
+      "myAnswer": "B, because volatile memory should be targeted first IF malware is suspected to be memory resident",
+      "review": "correct"
+    },
+    {
+      "id": 4,
+      "topic": "Threat Intelligence",
+      "status": "Raw Answer",
+      "question": "A security team receives a threat intelligence report containing IP addresses, file hashes, domains, and associated MITRE ATT&CK techniques.\n\nWhich part of the report BEST represents TTPs?",
+      "options": [
+        "IP addresses",
+        "SHA256 hashes",
+        "Domains",
+        "ATT&CK techniques"
+      ],
+      "myAnswer": "D, because MITRE ATT&CK is a framework consisting of TTPs",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "Credential Attacks",
+      "status": "Raw Answer",
+      "question": "A company detects many failed logins from one source IP against hundreds of user accounts using the same password.\n\nWhich attack is MOST likely occurring?",
+      "options": [
+        "Credential stuffing",
+        "Password spraying",
+        "Kerberoasting",
+        "Golden ticket"
+      ],
+      "myAnswer": "B, it's not credential stuffing because credential stuffing uses username + password",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "PowerShell",
+      "status": "Raw Answer",
+      "question": "A security analyst finds a suspicious PowerShell command:\n\npowershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand SQBFAFgA...\n\nWhich of the following BEST explains why this is suspicious?",
+      "options": [
+        "It is guaranteed to be normal software installation",
+        "It uses options commonly associated with obfuscation and policy bypass",
+        "It proves DNS tunneling occurred",
+        "It indicates a DHCP renewal"
+      ],
+      "myAnswer": "B, because of suspicious command options",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "SOAR",
+      "status": "Raw Answer",
+      "question": "An organization wants to improve incident response consistency by automatically enriching alerts, opening tickets, and executing approved containment steps.\n\nWhich technology BEST supports this goal?",
+      "options": [
+        "SOAR",
+        "RAID",
+        "DHCP",
+        "NAT"
+      ],
+      "myAnswer": "A, because SOAR automates and orchestrates alerts and security events",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Web Application Attacks",
+      "status": "Raw Answer",
+      "question": "A web application log shows repeated requests containing:\n\n../../../../etc/passwd\n\nWhich attack should the analyst suspect?",
+      "options": [
+        "SQL injection",
+        "Directory traversal",
+        "Cross-site request forgery",
+        "Kerberoasting"
+      ],
+      "myAnswer": "B, because \"../../\" indicates directory traversal",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Cloud Security / CASB",
+      "status": "Raw Answer",
+      "question": "A company discovers that several employees are using unsanctioned cloud storage applications to share sensitive documents.\n\nWhich solution BEST helps discover and control this shadow IT risk?",
+      "options": [
+        "CASB",
+        "DHCP",
+        "RAID",
+        "NTP"
+      ],
+      "myAnswer": "A, because cloud access security broker discovers and controls possible cloud storage misuse",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Incident Response",
+      "status": "Raw Answer",
+      "question": "During an incident, an analyst isolates an affected host, blocks known malicious domains, and disables a compromised account.\n\nWhich incident response phase do these actions MOST closely represent?",
+      "options": [
+        "Preparation",
+        "Containment",
+        "Recovery",
+        "Lessons learned"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "Lateral Movement",
+      "status": "Raw Answer",
+      "question": "A security analyst notices that a service account successfully accessed several admin shares using SMB shortly after failed login attempts.\n\nWhich behavior is MOST likely occurring?",
+      "options": [
+        "Normal DNS resolution",
+        "Lateral movement using compromised credentials",
+        "SSL certificate renewal",
+        "Backup verification only"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "SIEM Tuning",
+      "status": "Raw Answer",
+      "question": "A SIEM rule triggers on every PowerShell execution, creating thousands of alerts per day.\n\nWhich improvement would MOST reduce noise while preserving useful detection?",
+      "options": [
+        "Disable all PowerShell logging",
+        "Add correlation conditions such as suspicious parent process, encoded commands, and external network connections",
+        "Delete old alerts",
+        "Ignore all PowerShell from administrators"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Ransomware / Recovery",
+      "status": "Raw Answer",
+      "question": "A ransomware infection has encrypted several files on a file server. Backups exist, but their integrity has not been verified.\n\nWhat should happen before restoration?",
+      "options": [
+        "Restore immediately without checking anything",
+        "Validate backup integrity and ensure the backup is clean",
+        "Delete all backups",
+        "Pay the ransom first"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "Kerberos / Kerberoasting",
+      "status": "Raw Answer",
+      "question": "A threat hunter wants to detect Kerberoasting activity.\n\nWhich evidence would be MOST relevant?",
+      "options": [
+        "Large number of Kerberos service ticket requests for SPNs",
+        "DHCP renewals every hour",
+        "ICMP echo replies",
+        "Browser cache deletion"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "False Positive Analysis",
+      "status": "Raw Answer",
+      "question": "An analyst receives an alert for a malicious file hash found on one endpoint. The same hash appears on 200 endpoints, but all are in the approved software directory and signed by the vendor.\n\nWhat should the analyst do FIRST?",
+      "options": [
+        "Wipe all 200 systems",
+        "Validate whether the detection is a false positive by checking signature, path, prevalence, and vendor reputation",
+        "Ignore because signed files are always safe",
+        "Disable EDR"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 16,
+      "topic": "Compensating Controls",
+      "status": "Raw Answer",
+      "question": "A company wants to reduce risk from an unpatchable legacy system that supports a critical manufacturing process.\n\nWhich approach is BEST?",
+      "options": [
+        "Place the system on a segmented network with strict access controls and monitoring",
+        "Expose the system directly to the internet",
+        "Disable all logging to improve performance",
+        "Remove all compensating controls"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 17,
+      "topic": "Command and Control",
+      "status": "Raw Answer",
+      "question": "A SOC analyst sees outbound traffic from a workstation to a newly registered domain every 30 seconds with small payload sizes.\n\nWhich activity is MOST likely?",
+      "options": [
+        "C2 beaconing",
+        "Normal DHCP negotiation",
+        "Local privilege assignment",
+        "Physical access control"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 18,
+      "topic": "OAuth / Cloud Identity",
+      "status": "Raw Answer",
+      "question": "A cloud administrator notices that an OAuth application was granted mail-read permissions by a user after a phishing email.\n\nWhat should be done FIRST?",
+      "options": [
+        "Revoke the OAuth app consent/token",
+        "Reboot the user's monitor",
+        "Disable DNS globally",
+        "Change the Wi-Fi password only"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 19,
+      "topic": "Forensics / Legal",
+      "status": "Raw Answer",
+      "question": "An analyst wants to ensure evidence can be used in legal proceedings.\n\nWhich process is MOST important?",
+      "options": [
+        "Chain of custody",
+        "Load balancing",
+        "Port mirroring only",
+        "Asset tagging only"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 20,
+      "topic": "Post-Incident Activity",
+      "status": "Raw Answer",
+      "question": "After an incident is resolved, the team meets to discuss what happened, what worked, what failed, and how procedures should improve.\n\nWhich phase does this represent?",
+      "options": [
+        "Preparation",
+        "Containment",
+        "Post-incident activity",
+        "Initial detection"
+      ],
+      "myAnswer": "C",
+      "review": "correct"
+    }
+  ]
+}
