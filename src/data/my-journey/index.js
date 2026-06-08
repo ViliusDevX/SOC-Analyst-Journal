@@ -3,5 +3,6 @@ import entry002 from "./002_questionnaire.json";
 import entry003 from "./003_questionnaire.json";
 import entry004 from "./004_questionnaire.json";
 import entry005 from "./005_questionnaire.json";
+import entry006 from "./006_questionnaire.json";
 
-export const journeyEntries = [entry001, entry002, entry003, entry004, entry005];
+export const journeyEntries = [entry001, entry002, entry003, entry004, entry005, entry006];
