@@ -1,0 +1,384 @@
+{
+  "id": "006",
+  "title": "Acronyms and General CySA+ / Security+ Practice Set",
+  "date": "2026-06-08",
+  "status": "Raw Answers",
+  "summary": "25 CySA+ / Security+ practical acronym and general security questions with mixed answer positions, covering SIEM, SOAR, EDR, TTPs, IOCs, MITRE ATT&CK, vulnerability terms, identity protocols, CASB, email authentication, DLP, SOC metrics, BCP/DR metrics, ports, UEBA, and threat hunting.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "SIEM",
+      "question": "Which acronym refers to a platform that collects, correlates, and searches security logs from many sources?",
+      "options": [
+        "SOAR",
+        "SIEM",
+        "EDR",
+        "NDR"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "SOAR",
+      "question": "Which acronym refers to automation and orchestration used to enrich alerts and execute response playbooks?",
+      "options": [
+        "SIEM",
+        "EDR",
+        "SOAR",
+        "XDR"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "Endpoint Security",
+      "question": "Which acronym refers to endpoint monitoring and response capabilities, such as detecting suspicious processes and isolating hosts?",
+      "options": [
+        "NDR",
+        "SIEM",
+        "CASB",
+        "EDR"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "D",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 4,
+      "topic": "Threat Intelligence",
+      "question": "Which term describes attacker behaviors, methods, and procedures rather than single indicators like IP addresses or hashes?",
+      "options": [
+        "IOC",
+        "TTP",
+        "CVE",
+        "SLA"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "Threat Intelligence",
+      "question": "Which item is the BEST example of an IOC?",
+      "options": [
+        "Persistence through scheduled tasks",
+        "Credential dumping as a technique",
+        "Malicious file hash",
+        "Privilege escalation as a tactic"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "MITRE ATT&CK",
+      "question": "Which framework is commonly used to map adversary tactics and techniques?",
+      "options": [
+        "CVSS",
+        "OWASP Top 10",
+        "NIST CSF",
+        "MITRE ATT&CK"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "D",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "Vulnerability Management",
+      "question": "Which acronym describes a standardized vulnerability identifier such as CVE-2026-12345?",
+      "options": [
+        "CVE",
+        "CVSS",
+        "CWE",
+        "CPE"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Vulnerability Management",
+      "question": "Which scoring system helps estimate vulnerability severity using metrics such as attack vector, complexity, privileges required, and impact?",
+      "options": [
+        "CVE",
+        "CPE",
+        "CVSS",
+        "CWE"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Identity and Access Management",
+      "question": "Which acronym refers to a common identity protocol used for single sign-on assertions?",
+      "options": [
+        "LDAP",
+        "SAML",
+        "SMB",
+        "SNMP"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Cloud Security",
+      "question": "Which technology helps enforce security policies for cloud application usage and can reduce shadow IT risk?",
+      "options": [
+        "WAF",
+        "CASB",
+        "NAC",
+        "DLP"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "Email Security",
+      "question": "Which email security mechanism checks whether a sending mail server is authorized to send mail for a domain?",
+      "options": [
+        "DKIM",
+        "DMARC",
+        "SPF",
+        "S/MIME"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "Email Security",
+      "question": "Which email security mechanism uses cryptographic signatures to verify that email was not modified and came from an authorized domain?",
+      "options": [
+        "SPF",
+        "DKIM",
+        "DMARC",
+        "STARTTLS"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Email Security",
+      "question": "Which email policy standard tells receivers how to handle mail that fails SPF or DKIM checks?",
+      "options": [
+        "DMARC",
+        "DKIM",
+        "SPF",
+        "S/MIME"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "Data Protection",
+      "question": "Which acronym refers to preventing sensitive data from leaving an organization without authorization?",
+      "options": [
+        "CASB",
+        "DLP",
+        "DRP",
+        "IAM"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "SOC Metrics",
+      "question": "Which metric measures how long it takes to detect an incident?",
+      "options": [
+        "MTTR",
+        "RTO",
+        "MTTD",
+        "RPO"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 16,
+      "topic": "SOC Metrics",
+      "question": "Which metric measures how long it takes to recover or respond after an incident is detected?",
+      "options": [
+        "RPO",
+        "MTTR",
+        "MTTD",
+        "SLA"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 17,
+      "topic": "Business Continuity",
+      "question": "Which acronym refers to the maximum acceptable amount of data loss measured in time?",
+      "options": [
+        "RTO",
+        "RPO",
+        "MTTD",
+        "MTTR"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 18,
+      "topic": "Business Continuity",
+      "question": "Which acronym refers to the maximum acceptable time to restore a system or service?",
+      "options": [
+        "RTO",
+        "RPO",
+        "SLA",
+        "BIA"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 19,
+      "topic": "Identity and Directory Services",
+      "question": "Which protocol is commonly used for directory services and querying Active Directory?",
+      "options": [
+        "RADIUS",
+        "Kerberos",
+        "LDAP",
+        "SMB"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 20,
+      "topic": "Windows Networking",
+      "question": "Which protocol is commonly used for Windows file sharing and admin shares such as C$?",
+      "options": [
+        "RDP",
+        "SMB",
+        "LDAP",
+        "WinRM"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 21,
+      "topic": "Ports and Protocols",
+      "question": "Which port is commonly associated with SSH?",
+      "options": [
+        "22",
+        "23",
+        "3389",
+        "445"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 22,
+      "topic": "Ports and Protocols",
+      "question": "Which port is commonly associated with RDP?",
+      "options": [
+        "445",
+        "5985",
+        "3389",
+        "389"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 23,
+      "topic": "Ports and Protocols",
+      "question": "Which port is commonly associated with DNS?",
+      "options": [
+        "88",
+        "389",
+        "53",
+        "123"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 24,
+      "topic": "UEBA",
+      "question": "Which of the following BEST describes UEBA?",
+      "options": [
+        "Detecting abnormal user/entity behavior compared to a baseline",
+        "Blocking all unsigned PowerShell scripts",
+        "Encrypting sensitive files at rest",
+        "Scanning web requests for SQL injection"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 25,
+      "topic": "Threat Hunting",
+      "question": "Which of the following BEST describes threat hunting?",
+      "options": [
+        "Waiting for user reports before investigating",
+        "Proactively searching for threats that automated tools may have missed",
+        "Restoring systems from backup after ransomware",
+        "Assigning CVSS scores to vulnerabilities"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    }
+  ]
+}
