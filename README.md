@@ -16,7 +16,7 @@ The project combines:
 
 ## Current Features
 
-- 90 CySA+ / SOC practice questions
+- 135 CySA+ / SOC practice questions
 - 15 Investigation scenarios
 - 30 Practice lab scenarios
 - Structured JSON-based questionnaire system
