@@ -11,10 +11,10 @@ The project combines cybersecurity study content with an interactive React front
 ## Current Content
 
 * 170 CySA+ / SOC practice questions
-* 15 raw investigation scenarios from my learning journal
+* 22 raw investigation scenarios from my learning journal
 * 30 interactive *Scenario Lab* scenarios
 * 124 *Scenario Lab* questions
-* 8 structured questionnaire entries
+* 9 structured questionnaire entries
 * Raw markdown practice sessions preserved in the repository
 
 ---
