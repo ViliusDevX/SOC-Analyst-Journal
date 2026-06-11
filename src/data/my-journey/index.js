@@ -6,5 +6,6 @@ import entry005 from "./005_questionnaire.json";
 import entry006 from "./006_questionnaire.json";
 import entry007 from "./007_questionnaire.json";
 import entry008 from "./008_questionnaire.json";
+import entry009 from "./009_questionnaire.json";
 
-export const journeyEntries = [entry001, entry002, entry003, entry004, entry005, entry006, entry007, entry008];
+export const journeyEntries = [entry001, entry002, entry003, entry004, entry005, entry006, entry007, entry008, entry009];
