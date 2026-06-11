@@ -1,0 +1,289 @@
+{
+  "id": "008",
+  "title": "CySA+ Wording Traps and Prioritization Practice Set",
+  "date": "2026-06-11",
+  "status": "Raw Answers",
+  "summary": "20 CySA+ wording, prioritization, and process questions focused on BEST, FIRST, NEXT, MOST decisions, including containment, validation, evidence preservation, recovery, OAuth revocation, SIEM tuning, TTP-based intelligence, Linux persistence, DNS tunneling, memory forensics, SOC metrics, false positive analysis, and post-incident activity.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Incident Response / Evidence Preservation",
+      "status": "Raw Answer",
+      "question": "A SOC analyst receives an alert that a workstation executed malware and is currently communicating with a known C2 server. The endpoint contains volatile evidence that may disappear after reboot.\n\nWhat should the analyst do FIRST?",
+      "options": [
+        "Reimage the workstation to remove the malware completely",
+        "Isolate the workstation from the network while preserving evidence",
+        "Restore the workstation from the most recent known backup",
+        "Notify all users that malware was detected on one endpoint"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "Vulnerability Management / Validation",
+      "status": "Raw Answer",
+      "question": "A vulnerability scanner reports a critical vulnerability on a production server. The server is behind a reverse proxy, and the finding is based only on the exposed banner version.\n\nWhat should the analyst do NEXT?",
+      "options": [
+        "Validate the finding against the actual backend version and configuration",
+        "Immediately classify the vulnerability as exploited in the environment",
+        "Delete the scanner result because reverse proxies prevent exploitation",
+        "Shut down all systems with similar banners before further review"
+      ],
+      "myAnswer": "A, because of false banner grabbing which is likely misleading",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "Insider Threat / DLP",
+      "status": "Raw Answer",
+      "question": "An analyst is investigating a suspected insider threat. A user downloaded 9GB of sensitive files at 2:00 AM and uploaded them to personal cloud storage. The user is still employed and has legitimate access to the files.\n\nWhat is the BEST next step?",
+      "options": [
+        "Publicly accuse the user to discourage additional data transfers",
+        "Verify business justification and preserve logs before taking action",
+        "Delete the uploaded files locally to reduce evidence exposure",
+        "Disable all file shares for the entire organization immediately"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 4,
+      "topic": "Ransomware / Recovery",
+      "status": "Raw Answer",
+      "question": "A server is actively encrypting shared files. Backups exist, but the backup team has not verified their integrity or restore status.\n\nWhich action should happen BEFORE restoring from backup?",
+      "options": [
+        "Validate that the backup is clean, complete, and restorable",
+        "Delete all encrypted files before preserving forensic artifacts",
+        "Restore the backup immediately to shorten business downtime",
+        "Reconnect the infected server to confirm the ransomware stopped"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "Credential Compromise / Lateral Movement",
+      "status": "Raw Answer",
+      "question": "A SOC analyst sees repeated failed logins followed by one successful login and Event ID 4672 for a privileged account. The same account then accesses several admin shares.\n\nWhat is the MOST likely concern?",
+      "options": [
+        "Normal service account maintenance during a patch window",
+        "Privileged credential compromise followed by lateral movement",
+        "DNS tunneling through Active Directory SRV record lookups",
+        "Failed vulnerability scan authentication against one server"
+      ],
+      "myAnswer": "B, more likely to be compromise rather than normal service account",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "OAuth / Cloud Identity",
+      "status": "Raw Answer",
+      "question": "During triage, an analyst finds an OAuth application with mail-read permissions granted after a phishing email. The user changed their password, but suspicious mailbox access continues.\n\nWhat should be revoked FIRST?",
+      "options": [
+        "The user's local browser cache and saved bookmarks",
+        "The OAuth app consent, token, or active cloud session",
+        "The domain controller DNS records for the mail tenant",
+        "The firewall rule allowing outbound HTTPS from all users"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "SIEM Tuning",
+      "status": "Raw Answer",
+      "question": "A SIEM rule generates thousands of alerts because it triggers on every PowerShell execution. Analysts are missing true positives due to noise.\n\nWhich change BEST improves the detection?",
+      "options": [
+        "Disable PowerShell telemetry until the alert volume decreases",
+        "Keep the rule unchanged because more alerts means better visibility",
+        "Add context such as parent process, encoded commands, and network activity",
+        "Raise every PowerShell alert to critical so analysts review them faster"
+      ],
+      "myAnswer": "C",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Threat Intelligence / TTPs",
+      "status": "Raw Answer",
+      "question": "A threat intelligence feed provides a list of malicious IP addresses from six months ago. The SOC wants to improve long-term detection quality against the same adversary.\n\nWhich information would be MOST valuable?",
+      "options": [
+        "The adversary's tactics, techniques, procedures, and behavior patterns",
+        "The exact IP addresses only, because infrastructure never changes",
+        "The number of social media posts mentioning the threat actor",
+        "The country where the feed publisher is physically located"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Phishing / Malware Triage",
+      "status": "Raw Answer",
+      "question": "An endpoint alert shows WINWORD.EXE spawning powershell.exe with an encoded command. The host then connects to an external IP over TCP/443.\n\nWhat should the analyst investigate FIRST?",
+      "options": [
+        "Whether the user recently opened a suspicious document or attachment",
+        "Whether the monitor resolution changed after the document opened",
+        "Whether the DHCP lease duration was longer than seven days",
+        "Whether the external IP uses port 443 for normal printer traffic"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Web Application Compromise",
+      "status": "Raw Answer",
+      "question": "A public web application shows SQL injection attempts in WAF logs. Shortly afterward, the web server process launches cmd.exe and a new local administrator account appears.\n\nWhich action is MOST appropriate FIRST?",
+      "options": [
+        "Isolate the affected web server and preserve relevant evidence",
+        "Delete the local administrator account and close the investigation",
+        "Patch every internal workstation before investigating the server",
+        "Ignore the WAF logs because exploitation always fails behind a WAF"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "Linux Persistence",
+      "status": "Raw Answer",
+      "question": "A Linux host shows a suspicious cron entry running curl every minute and piping the output to bash as root. The host is still online.\n\nWhat is the BEST interpretation?",
+      "options": [
+        "The system is renewing a DHCP lease with a custom script",
+        "The host has a possible recurring remote-code execution mechanism",
+        "The user is compressing logs before sending them to a SIEM",
+        "The cron entry is required for normal SSH public key authentication"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "Compensating Controls",
+      "status": "Raw Answer",
+      "question": "A company cannot patch a legacy industrial system because downtime would stop production. The system must remain operational.\n\nWhich risk reduction approach is BEST?",
+      "options": [
+        "Segment the system and restrict access with monitoring controls",
+        "Disable all logging to improve performance and system stability",
+        "Allow direct internet access so vendors can troubleshoot faster",
+        "Mark all vulnerabilities as accepted without compensating controls"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "Forensics / Chain of Custody",
+      "status": "Raw Answer",
+      "question": "An analyst is asked to preserve evidence for possible legal proceedings after a data theft incident.\n\nWhich activity is MOST important?",
+      "options": [
+        "Maintaining chain of custody for collected evidence",
+        "Rebooting all systems to clear volatile memory quickly",
+        "Sharing raw evidence publicly for transparency",
+        "Editing original logs to make the timeline easier to read"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "DNS Tunneling",
+      "status": "Raw Answer",
+      "question": "A host sends long, high-entropy DNS TXT queries every 20 seconds to a newly registered domain. No browser activity matches the traffic.\n\nWhich conclusion is MOST defensible?",
+      "options": [
+        "The host may be using DNS tunneling or DNS-based exfiltration",
+        "The host is performing normal Active Directory discovery only",
+        "The host is downloading updates from a trusted CDN provider",
+        "The host is renewing its IP address from the DHCP server"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "Memory Forensics",
+      "status": "Raw Answer",
+      "question": "A malware sample is suspected to run only in memory. The analyst plans to reboot the system to stop the process before collection.\n\nWhy is this risky?",
+      "options": [
+        "Rebooting may destroy volatile evidence needed for analysis",
+        "Rebooting always encrypts all disk evidence automatically",
+        "Rebooting prevents all future network containment actions",
+        "Rebooting converts memory artifacts into firewall events"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 16,
+      "topic": "SOC Metrics",
+      "status": "Raw Answer",
+      "question": "A SOC team wants to measure how quickly it detects incidents after malicious activity begins.\n\nWhich metric is MOST relevant?",
+      "options": [
+        "RPO",
+        "MTTR",
+        "MTTD",
+        "RTO"
+      ],
+      "myAnswer": "C, Mean time to detect",
+      "review": "correct"
+    },
+    {
+      "id": 17,
+      "topic": "SOC Metrics",
+      "status": "Raw Answer",
+      "question": "A SOC team wants to measure how quickly it restores service or completes response after an incident.\n\nWhich metric is MOST relevant?",
+      "options": [
+        "MTTR",
+        "CVSS",
+        "IOC",
+        "TTP"
+      ],
+      "myAnswer": "A, Mean time to recover",
+      "review": "correct"
+    },
+    {
+      "id": 18,
+      "topic": "False Positive Analysis",
+      "status": "Raw Answer",
+      "question": "An analyst receives a malware hash from a threat feed. The same hash is present on many endpoints, but the file is signed by a trusted vendor and exists in the normal application directory.\n\nWhat should the analyst do FIRST?",
+      "options": [
+        "Wipe every endpoint containing the hash immediately",
+        "Validate whether the alert is a false positive using signature, path, and prevalence",
+        "Disable the EDR tool because signed files cannot be malicious",
+        "Delete the threat intelligence feed from the SIEM permanently"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 19,
+      "topic": "Credential Attacks",
+      "status": "Raw Answer",
+      "question": "An attacker tries a single common password against hundreds of usernames. The attempts are slow and distributed over several hours.\n\nWhich attack is MOST likely occurring?",
+      "options": [
+        "Password spraying",
+        "Credential stuffing",
+        "Kerberoasting",
+        "Pass-the-ticket"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 20,
+      "topic": "Post-Incident Activity",
+      "status": "Raw Answer",
+      "question": "After a major incident, the team reviews the timeline, identifies what failed, updates playbooks, and adds new detections.\n\nWhich incident response phase is represented?",
+      "options": [
+        "Recovery only",
+        "Containment only",
+        "Preparation before detection",
+        "Post-incident activity"
+      ],
+      "myAnswer": "D, but i think i answered this question in other file, it repeats",
+      "review": "correct"
+    }
+  ]
+}
