@@ -1,0 +1,219 @@
+{
+  "id": "010",
+  "title": "CySA+ Practice Questions",
+  "date": "2026-06-12",
+  "status": "Raw Answers",
+  "summary": "15 medium/hard CySA+ practice questions covering vulnerability validation, OAuth abuse, PowerShell triage, Kerberoasting, EDR investigation, SIEM tuning, Linux privilege escalation, IDOR, C2 beaconing, ransomware containment, threat intelligence, CASB/DLP, DNS tunneling, evidence handling, and compensating controls.",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Vulnerability Management",
+      "status": "Raw Answer",
+      "question": "A vulnerability scanner reports that an internal web application is vulnerable to a high-severity authentication bypass. The application is only reachable through the VPN, but the VPN is used by contractors and third-party support staff.\n\nWhat should the analyst do FIRST?",
+      "options": [
+        "Lower the severity because the application is not internet-facing",
+        "Validate exploitability and identify who can reach the affected application",
+        "Accept the risk because authenticated VPN access is required",
+        "Disable the vulnerability scanner rule until the next maintenance window"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 2,
+      "topic": "OAuth / Cloud Identity",
+      "status": "Raw Answer",
+      "question": "A SOC analyst sees the following sequence:\n\n- User receives a Microsoft 365 phishing email\n- User grants consent to an unverified OAuth application\n- Mailbox searches occur for \"invoice\", \"payment\", and \"wire\"\n- No new sign-in occurs after the password reset\n\nWhat is the MOST likely reason suspicious access continues?",
+      "options": [
+        "The attacker is using previously granted OAuth permissions or active sessions",
+        "The attacker is performing DNS tunneling through Exchange Online",
+        "The password reset failed because the domain controller was offline",
+        "The mailbox searches are caused by normal Outlook indexing"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 3,
+      "topic": "PowerShell / Endpoint Triage",
+      "status": "Raw Answer",
+      "question": "A Windows endpoint alert shows:\n\nParent: explorer.exe\nProcess: powershell.exe\nCommandLine: powershell.exe -NoProfile -EncodedCommand ...\nNetwork: 198.51.100.24:443\n\nThe user says they manually opened PowerShell to troubleshoot printer mapping.\n\nWhich evidence would BEST help determine whether the activity is suspicious?",
+      "options": [
+        "Whether the user has previously opened PowerShell for printer troubleshooting",
+        "Whether the encoded command decodes to expected admin activity or malicious behavior",
+        "Whether the workstation has a DHCP lease from the correct network",
+        "Whether the destination IP responds to ICMP ping requests"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 4,
+      "topic": "Kerberos / Kerberoasting",
+      "status": "Raw Answer",
+      "question": "A threat hunter sees multiple Kerberos service ticket requests for different SPNs from one workstation. The tickets use RC4 encryption, but there are no failed logins and the user authenticated normally.\n\nWhat should the hunter suspect?",
+      "options": [
+        "Kerberoasting activity may be occurring despite normal authentication",
+        "Password spraying is confirmed because RC4 is always a bad password error",
+        "Golden ticket usage is confirmed because all SPNs are domain controllers",
+        "DNS tunneling is likely because Kerberos always uses TXT records"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 5,
+      "topic": "EDR / Malware Triage",
+      "status": "Raw Answer",
+      "question": "An EDR product detects a suspicious binary on one host. The hash is unknown, the binary is unsigned, it was created in C:\\Users\\Public, and it was executed by rundll32.exe.\n\nWhich action is MOST appropriate FIRST?",
+      "options": [
+        "Immediately wipe all systems that have rundll32.exe",
+        "Isolate the affected host and collect process, file, and network artifacts",
+        "Ignore the alert because rundll32.exe is a legitimate Windows binary",
+        "Delete the file first so it cannot be collected by another process"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 6,
+      "topic": "SIEM Tuning / Impossible Travel",
+      "status": "Raw Answer",
+      "question": "A company receives many SIEM alerts from impossible travel detection. Investigation shows most are caused by corporate VPN exit nodes and mobile carrier routing.\n\nWhich improvement BEST reduces false positives without disabling the detection?",
+      "options": [
+        "Add known VPN/mobile egress context and require additional suspicious signals",
+        "Disable all geographic anomaly detections for privileged users",
+        "Lower log retention so repeated alerts age out faster",
+        "Block every login that uses a mobile network provider"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 7,
+      "topic": "Linux Privilege Escalation",
+      "status": "Raw Answer",
+      "question": "A Linux server shows:\n\nsudo: appuser : USER=root ; COMMAND=/usr/bin/chmod +s /bin/bash\n\nWhy is this concerning?",
+      "options": [
+        "It can create a repeated privilege escalation path using an SUID shell",
+        "It rotates the root password and forces all sessions to reauthenticate",
+        "It enables encrypted DNS tunneling through the bash binary",
+        "It deletes the bash executable and prevents shell access permanently"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 8,
+      "topic": "Web Application Security / IDOR",
+      "status": "Raw Answer",
+      "question": "A web server log shows repeated requests:\n\nGET /api/orders/1001\nGET /api/orders/1002\nGET /api/orders/1003\n\nThe same authenticated user receives HTTP 200 responses for orders belonging to other users.\n\nWhich vulnerability is MOST likely?",
+      "options": [
+        "Reflected XSS",
+        "SQL injection",
+        "IDOR",
+        "Path traversal"
+      ],
+      "myAnswer": "C",
+      "review": "correct"
+    },
+    {
+      "id": 9,
+      "topic": "Command and Control",
+      "status": "Raw Answer",
+      "question": "A malware alert is triggered by traffic to a newly registered domain over HTTPS every 60 seconds. The payload size is small and consistent. No large outbound transfer is observed.\n\nWhich behavior is MOST likely?",
+      "options": [
+        "Command-and-control beaconing",
+        "Bulk data exfiltration",
+        "DHCP address renewal",
+        "Kerberos pre-authentication failure"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 10,
+      "topic": "Ransomware / Incident Response",
+      "status": "Raw Answer",
+      "question": "During a ransomware incident, a manager asks the SOC to restore from backups immediately. The infected host still has mapped network drives and is actively encrypting files.\n\nWhat should happen FIRST?",
+      "options": [
+        "Restore backups immediately to reduce downtime",
+        "Isolate the infected host to stop spread and preserve evidence",
+        "Delete all encrypted files before confirming backup status",
+        "Reconnect mapped drives to identify which files are affected"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    },
+    {
+      "id": 11,
+      "topic": "Threat Intelligence",
+      "status": "Raw Answer",
+      "question": "A SOC receives a threat intelligence feed with IP addresses from an adversary campaign. Many IPs are cloud-hosted and change frequently.\n\nWhat would be MORE useful for long-term detection?",
+      "options": [
+        "TTPs, tool behavior, infrastructure patterns, and detection logic",
+        "The exact IP list only, because cloud IPs rarely change",
+        "A screenshot of the threat actor's public website",
+        "The number of followers the threat actor has on social media"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 12,
+      "topic": "CASB / DLP",
+      "status": "Raw Answer",
+      "question": "A security engineer wants to monitor whether sensitive files are uploaded to personal cloud storage services from managed endpoints.\n\nWhich control would BEST help detect and enforce this policy?",
+      "options": [
+        "CASB or DLP controls integrated with endpoint/cloud activity",
+        "NTP synchronization on all domain controllers",
+        "RAID mirroring on the file server",
+        "Port security on unused switch ports only"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 13,
+      "topic": "DNS Tunneling",
+      "status": "Raw Answer",
+      "question": "A host makes thousands of DNS TXT queries with long high-entropy subdomains. The domain is newly registered, and there is no matching browser activity.\n\nWhich next step is MOST appropriate?",
+      "options": [
+        "Treat as possible DNS tunneling and identify the process and user behind the queries",
+        "Treat as normal Active Directory discovery because TXT records are always internal",
+        "Ignore the activity because DNS is required for normal internet browsing",
+        "Delete DNS logs first to reduce storage during the investigation"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 14,
+      "topic": "Forensics / Chain of Custody",
+      "status": "Raw Answer",
+      "question": "An analyst is preparing evidence for possible legal action after a confirmed data theft incident.\n\nWhich action is MOST important?",
+      "options": [
+        "Maintain chain of custody and preserve original evidence integrity",
+        "Edit log timestamps so the timeline is easier to understand",
+        "Share the raw evidence with all employees for transparency",
+        "Reboot all systems before collecting volatile evidence"
+      ],
+      "myAnswer": "A",
+      "review": "correct"
+    },
+    {
+      "id": 15,
+      "topic": "Compensating Controls",
+      "status": "Raw Answer",
+      "question": "A system owner refuses to patch a critical internal application because downtime would affect production. The vulnerability is exploitable only from a restricted subnet.\n\nWhich response BEST balances security and operations?",
+      "options": [
+        "Accept the risk permanently because the subnet is restricted",
+        "Apply compensating controls, restrict access further, monitor closely, and schedule remediation",
+        "Remove all network segmentation because it creates false confidence",
+        "Mark the vulnerability as resolved because production downtime is unacceptable"
+      ],
+      "myAnswer": "B",
+      "review": "correct"
+    }
+  ]
+}
