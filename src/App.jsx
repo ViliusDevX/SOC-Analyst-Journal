@@ -9,6 +9,7 @@ import ScenarioLab from "./pages/ScenarioLab";
 function App() {
   return (
     <BrowserRouter>
+    <Analytics />
       <div className="min-h-screen bg-black text-white">
         <NavBar />
 
