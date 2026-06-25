@@ -165,3 +165,4 @@ Planned improvements:
 
 Some answers are intentionally preserved in raw form, including mistakes and uncertainty, because the goal is to show real learning progression.
 
+UPD: CySA+ passed 2026-06-17 
